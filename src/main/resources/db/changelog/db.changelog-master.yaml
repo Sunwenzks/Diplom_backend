@@ -18,3 +18,4 @@ databaseChangeLog:
 
             #создать табличку с категориями колонки (id число, name строка, for_main boolean)
             #https://docs.liquibase.com/change-types/home.html#entities
+            #https://www.youtube.com/watch?v=5ePo08sqcpk&list=PLAma_mKffTOR5o0WNHnY0mTjKxnCgSXrZ
