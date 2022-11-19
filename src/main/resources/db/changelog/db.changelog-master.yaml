@@ -1,0 +1,17 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: vlad
+  - changeSet:
+      id: createTable-example
+      author: liquibase-docs
+      changes:
+        - createTable:
+            catalogName: department
+            columns:
+              - column:
+                  name: address
+                  type: varchar(255)
+            remarks: AString
+            schemaName: public
+            tableName: person
