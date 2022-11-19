@@ -15,3 +15,6 @@ databaseChangeLog:
             remarks: AString
             schemaName: public
             tableName: person
+
+            #создать табличку с категориями колонки (id число, name строка, for_main boolean)
+            #https://docs.liquibase.com/change-types/home.html#entities
