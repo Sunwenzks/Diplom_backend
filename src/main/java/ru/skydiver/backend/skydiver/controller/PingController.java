@@ -17,12 +17,8 @@ public class PingController {
 
     @GetMapping("/info")
     public String getInfo() {
-        var name = "Ксюша очень красивая";
-        try {
-           categoryService.addCategory(name);
-        }  catch (IllegalArgumentException e) {
-            throw  new  HttpClientErrorException.BadRequest();
-        }
+        var name = "Страничка работает";
+
         return "ok";
     }
 

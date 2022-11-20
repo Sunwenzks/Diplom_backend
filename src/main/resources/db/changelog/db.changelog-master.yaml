@@ -15,7 +15,32 @@ databaseChangeLog:
             remarks: AString
             schemaName: public
             tableName: person
-
-            #создать табличку с категори€ми колонки (id число, name строка, for_main boolean)
-            #https://docs.liquibase.com/change-types/home.html#entities
-            #https://www.youtube.com/watch?v=5ePo08sqcpk&list=PLAma_mKffTOR5o0WNHnY0mTjKxnCgSXrZ
+  - changeSet:
+      id: 2
+      author: Nick
+      changes:
+        - createTable:
+            tableName: Category
+            remarks:  атегории
+            columns:
+              - column:
+                  name: id
+                  type: integer
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(50)
+                  remarks: Ќазвание категории
+                  constraints:
+                    unique: true
+                    uniqueConstraintName: category_url
+                    nullable: false
+              - column:
+                  name: main_page
+                  type: boolean
+                  defaultValue: false
+                  constraints:
+                    nullable: false
