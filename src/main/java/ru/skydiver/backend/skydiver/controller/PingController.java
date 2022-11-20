@@ -7,7 +7,7 @@ import org.springframework.web.client.HttpClientErrorException;
 import ru.skydiver.backend.skydiver.repositories.CategoryRepository;
 import ru.skydiver.backend.skydiver.services.CategoryService;
 
-@RestController
+@RestController //работа с http
 public class PingController {
 
     private final CategoryService categoryService;
@@ -15,11 +15,9 @@ public class PingController {
         this.categoryService = categoryService;
     }
 
-    @GetMapping("/info")
+    @GetMapping("/info") //аннотация для ссылки на инфо
     public String getInfo() {
-        var name = "Страничка работает";
-
-        return "ok";
+        return "Страничка работает";
     }
 
     //браузер -> http ->приложение сприга -> вызывается метод контроллера -> вызывается сервис добавление пользователя -> dao
