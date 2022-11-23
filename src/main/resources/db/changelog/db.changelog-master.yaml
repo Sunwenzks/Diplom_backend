@@ -25,7 +25,7 @@ databaseChangeLog:
             schemaName: public
             columns:
               - column:
-                  name: id_category
+                  name: id
                   type: integer
                   autoIncrement: true
                   constraints:
@@ -95,3 +95,95 @@ databaseChangeLog:
                     unique: true
                     uniqueConstraintName: telephone_url
                     nullable: false
+  - changeSet:
+      id: 4
+      author: Ksyu
+      changes:
+        - createTable:
+            tableName: Orders
+            schemaName: public
+            columns:
+              - column:
+                  name: id_order
+                  type: integer
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: id_user
+                  type: integer
+                  constraints:
+                    nullable: false
+              - column:
+                  name: date_order
+                  type: date
+                  constraints:
+                    unique: true
+                    uniqueConstraintName: date_url
+                    nullable: false
+  - changeSet:
+      id: 5
+      author: Ksyu
+      changes:
+        - createTable:
+            tableName: Product
+            schemaName: public
+            columns:
+              - column:
+                  name: id_product
+                  type: integer
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name_product
+                  type: varchar(50)
+                  constraints:
+                    unique: true
+                    uniqueConstraintName: name_product_url
+                    nullable: false
+              - column:
+                  name: id
+                  type: integer
+                  constraints:
+                    nullable: false
+              - column:
+                  name: price
+                  type: money
+                  constraints:
+                    unique: true
+                    uniqueConstraintName: price_url
+                    nullable: false
+  - changeSet:
+      id: 6
+      author: Ksyu
+      changes:
+        - createTable:
+            tableName: Shopping_cart
+            schemaName: public
+            columns:
+              - column:
+                  name: id_order
+                  type: integer
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: id_product
+                  type: integer
+                  constraints:
+                    nullable: false
+
+  - changeSet:
+      id: 7
+      author: Ksyu
+      changes:
+        - renameColumn:
+            columnDataType: int
+            newColumnName: id_category
+            oldColumnName: id
+            schemaName: public
+            tableName: Product
