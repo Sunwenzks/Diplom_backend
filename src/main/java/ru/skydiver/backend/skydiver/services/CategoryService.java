@@ -9,13 +9,10 @@ import java.util.List;
 
 @Service
 public class CategoryService {
-
     private final CategoryRepository categoryRepository;
-
     public CategoryService(CategoryRepository categoryRepository) {
         this.categoryRepository = categoryRepository;
     }
-
     public void addCategory(String categoryName) {
         var existingCategory = categoryRepository.getCategory(categoryName);
         if (existingCategory != null) {

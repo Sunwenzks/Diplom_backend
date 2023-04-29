@@ -187,3 +187,52 @@ databaseChangeLog:
             oldColumnName: id
             schemaName: public
             tableName: Product
+
+  - changeSet:
+      id: 10
+      author: Ksyu
+      changes:
+        - addColumn:
+            schemaName: public
+            tableName: Category
+            columns:
+            - column:
+                name: pictures
+                type: varchar(20000)
+
+  - changeSet:
+      id: 11
+      author: Ksyu
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: id_category
+            baseTableName: Product
+            baseTableSchemaName: public
+            constraintName: fk_category_product
+            referencedColumnNames: id
+            referencedTableName: Category
+            referencedTableSchemaName: public
+            validate: true
+  - changeSet:
+      id: 12
+      author: Ksyu
+      changes:
+        - addColumn:
+            schemaName: public
+            tableName: Product
+            columns:
+              - column:
+                  name: pictures_product
+                  type: varchar(20000)
+  - changeSet:
+      id: 13
+      author: Ksyu
+      changes:
+        - addColumn:
+            schemaName: public
+            tableName: Product
+            columns:
+              - column:
+                  name: product_description
+                  type: varchar(60000)
+        
