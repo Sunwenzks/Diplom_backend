@@ -15,7 +15,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
 @DatabaseSetup("CategoryData.xml")
-public class CategoryControllerTest extends FunctionalTest {
+public class CategoryControllerTests extends FunctionalTest {
 
     @Autowired
     private WebApplicationContext wac;
