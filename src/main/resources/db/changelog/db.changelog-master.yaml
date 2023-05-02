@@ -21,7 +21,7 @@ databaseChangeLog:
       author: Nick
       changes:
         - createTable:
-            tableName: Category
+            tableName: category
             schemaName: public
             columns:
               - column:
@@ -194,7 +194,7 @@ databaseChangeLog:
       changes:
         - addColumn:
             schemaName: public
-            tableName: Category
+            tableName: category
             columns:
             - column:
                 name: pictures
@@ -210,7 +210,7 @@ databaseChangeLog:
             baseTableSchemaName: public
             constraintName: fk_category_product
             referencedColumnNames: id
-            referencedTableName: Category
+            referencedTableName: category
             referencedTableSchemaName: public
             validate: true
   - changeSet:

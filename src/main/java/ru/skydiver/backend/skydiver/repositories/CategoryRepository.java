@@ -1,5 +1,6 @@
 package ru.skydiver.backend.skydiver.repositories;
 
+import org.apache.commons.lang3.NotImplementedException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
@@ -11,7 +12,7 @@ import java.util.List;
 
 @Component
 public class CategoryRepository {
-    private static final String TABLE_NAME = "public.\"Category\"";
+    private static final String TABLE_NAME = "category";
     private final CategoryRowMapper ROW_MAPPER = new CategoryRowMapper();
     private final JdbcTemplate jdbcTemplate;
     public CategoryRepository(JdbcTemplate jdbcTemplate) {
@@ -22,16 +23,16 @@ public class CategoryRepository {
        return jdbcTemplate.query(sql, ROW_MAPPER);
     }
     public List<CategoryDto> getMainCategory(){
-        var sql = "select * from " + TABLE_NAME + "where main_page = true";
+        var sql = "select * from " + TABLE_NAME + " where main_page = true";
         return jdbcTemplate.query(sql, ROW_MAPPER);
     }
     public String getCategory(String categoryName) {
-        return "";
+        throw new NotImplementedException();
     }
     public void addCategory(String categoryName) {
-
+        throw new NotImplementedException();
     }
-    private class CategoryRowMapper implements RowMapper<CategoryDto> {
+    private static class CategoryRowMapper implements RowMapper<CategoryDto> {
         @Override
         public CategoryDto mapRow(ResultSet rs, int rowNum) throws SQLException {
             var id = rs.getInt("id");

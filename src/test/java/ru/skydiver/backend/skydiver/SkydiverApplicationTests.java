@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import ru.skydiver.backend.skydiver.services.CategoryService;
 import static org.assertj.core.api.Assertions.*;
 
-class SkydiverApplicationTests extends FunctionalTest{
+class SkydiverApplicationTests extends FunctionalTest {
 
 	@Autowired
 	private CategoryService categoryService;
