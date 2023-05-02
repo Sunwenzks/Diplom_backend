@@ -1,13 +1,21 @@
 package ru.skydiver.backend.skydiver;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+import config.FunctionalTest;
+import org.springframework.beans.factory.annotation.Autowired;
+import ru.skydiver.backend.skydiver.services.CategoryService;
+import static org.assertj.core.api.Assertions.*;
 
-@SpringBootTest
-class SkydiverApplicationTests {
+class SkydiverApplicationTests extends FunctionalTest {
+
+	@Autowired
+	private CategoryService categoryService;
 
 	@Test
-	void contextLoads() {
+	void testContextAndDb() {
+		assertThat(categoryService).isNotNull();
+		var result = categoryService.getAllCategories();
+		assertThat(result).isNotNull().isEmpty();
 	}
 
 }
