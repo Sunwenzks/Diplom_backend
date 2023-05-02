@@ -50,7 +50,7 @@ databaseChangeLog:
       author: Ksyu
       changes:
         - createTable:
-            tableName: Users
+            tableName: users
             schemaName: public
             columns:
               - column:
@@ -100,7 +100,7 @@ databaseChangeLog:
       author: Ksyu
       changes:
         - createTable:
-            tableName: Orders
+            tableName: orders
             schemaName: public
             columns:
               - column:
@@ -127,7 +127,7 @@ databaseChangeLog:
       author: Ksyu
       changes:
         - createTable:
-            tableName: Product
+            tableName: product
             schemaName: public
             columns:
               - column:
@@ -161,7 +161,7 @@ databaseChangeLog:
       author: Ksyu
       changes:
         - createTable:
-            tableName: Shopping_cart
+            tableName: shopping_cart
             schemaName: public
             columns:
               - column:
@@ -186,7 +186,7 @@ databaseChangeLog:
             newColumnName: id_category
             oldColumnName: id
             schemaName: public
-            tableName: Product
+            tableName: product
 
   - changeSet:
       id: 10
@@ -206,7 +206,7 @@ databaseChangeLog:
       changes:
         - addForeignKeyConstraint:
             baseColumnNames: id_category
-            baseTableName: Product
+            baseTableName: product
             baseTableSchemaName: public
             constraintName: fk_category_product
             referencedColumnNames: id
@@ -219,7 +219,7 @@ databaseChangeLog:
       changes:
         - addColumn:
             schemaName: public
-            tableName: Product
+            tableName: product
             columns:
               - column:
                   name: pictures_product
@@ -230,7 +230,7 @@ databaseChangeLog:
       changes:
         - addColumn:
             schemaName: public
-            tableName: Product
+            tableName: product
             columns:
               - column:
                   name: product_description

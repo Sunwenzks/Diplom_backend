@@ -1,33 +1,27 @@
 package ru.skydiver.backend.skydiver;
 
+import com.github.springtestdbunit.annotation.DatabaseOperation;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
+import com.github.springtestdbunit.annotation.DatabaseTearDown;
 import config.FunctionalTest;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
+
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
-@DatabaseSetup("CategoryData.xml")
 public class CategoryControllerTests extends FunctionalTest {
 
     @Autowired
-    private WebApplicationContext wac;
-
     private MockMvc mockMvc;
 
-    @Before
-    public void setup() {
-        this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
-    }
-
     @Test
+    @DatabaseSetup("CategoryData.xml")
+    @DatabaseTearDown(value = "CategoryData.xml", type = DatabaseOperation.DELETE)
     public void getAllCategories() throws Exception {
         var expected = "[" +
                 "{\"id\":1,\"name\":\"First\",\"imageURL\":\"somePicUrl\",\"mainPage\":true}," +
@@ -41,6 +35,8 @@ public class CategoryControllerTests extends FunctionalTest {
     }
 
     @Test
+    @DatabaseSetup("CategoryData.xml")
+    @DatabaseTearDown(value = "CategoryData.xml", type = DatabaseOperation.DELETE)
     public void getMainPageCategories() throws Exception {
         var expected = "[" +
                 "{\"id\":1,\"name\":\"First\",\"imageURL\":\"somePicUrl\",\"mainPage\":true}" +
