@@ -9,6 +9,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.TestExecutionListeners;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
@@ -29,6 +30,7 @@ import org.springframework.test.context.transaction.TransactionalTestExecutionLi
         DirtiesContextTestExecutionListener.class,
         TransactionalTestExecutionListener.class,
         DbUnitTestExecutionListener.class })
+@TestPropertySource(locations="classpath:test.properties")
 @DatabaseSetup("UserData.xml")
 public class FunctionalTest {
     protected String host = "http://localhost";
