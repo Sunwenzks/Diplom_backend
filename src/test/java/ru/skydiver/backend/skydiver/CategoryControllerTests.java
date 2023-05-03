@@ -1,23 +1,21 @@
 package ru.skydiver.backend.skydiver;
 
+import java.net.URI;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+
 import com.github.springtestdbunit.annotation.DatabaseOperation;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.DatabaseTearDown;
 import config.FunctionalTest;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
 
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class CategoryControllerTests extends FunctionalTest {
 
-    @Autowired
-    private MockMvc mockMvc;
 
     @Test
     @DatabaseSetup("CategoryData.xml")
@@ -27,11 +25,11 @@ public class CategoryControllerTests extends FunctionalTest {
                 "{\"id\":1,\"name\":\"First\",\"imageURL\":\"somePicUrl\",\"mainPage\":true}," +
                 "{\"id\":2,\"name\":\"Second\",\"imageURL\":\"somePicUrl2\",\"mainPage\":false}" +
                 "]";
-        this.mockMvc.perform(get("/category/all")
-                        .accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType("application/json;charset=UTF-8"))
-                .andExpect(content().json(expected));
+
+        var actual = client.send(HttpRequest.newBuilder().uri(URI.create(host + port + "/category/all"))
+                .build(), HttpResponse.BodyHandlers.ofString());
+
+        assertThat(actual.body()).isEqualTo(expected);
     }
 
     @Test
@@ -41,10 +39,9 @@ public class CategoryControllerTests extends FunctionalTest {
         var expected = "[" +
                 "{\"id\":1,\"name\":\"First\",\"imageURL\":\"somePicUrl\",\"mainPage\":true}" +
                 "]";
-        this.mockMvc.perform(get("/category/main")
-                        .accept(MediaType.parseMediaType("application/json;charset=UTF-8")))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType("application/json;charset=UTF-8"))
-                .andExpect(content().json(expected));
+        var actual = client.send(HttpRequest.newBuilder().uri(URI.create(host + port + "/category/main"))
+                .build(), HttpResponse.BodyHandlers.ofString());
+
+        assertThat(actual.body()).isEqualTo(expected);
     }
 }

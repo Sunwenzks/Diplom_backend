@@ -54,47 +54,57 @@ databaseChangeLog:
             schemaName: public
             columns:
               - column:
-                  name: id_user
+                  name: id
                   type: integer
                   autoIncrement: true
                   constraints:
                     primaryKey: true
                     nullable: false
               - column:
-                  name: name
+                  name: username
                   type: varchar(50)
                   constraints:
                     unique: true
                     uniqueConstraintName: name_url
                     nullable: false
               - column:
-                  name: surname
-                  type: varchar(50)
-                  constraints:
-                    unique: true
-                    uniqueConstraintName: surname_url
-                    nullable: false
-              - column:
-                  name: mail
-                  type: varchar(50)
-                  constraints:
-                    unique: true
-                    uniqueConstraintName: mail_url
-                    nullable: false
-              - column:
                   name: password
-                  type: varchar(50)
+                  type: text
                   constraints:
                     unique: true
                     uniqueConstraintName: password_url
                     nullable: false
               - column:
-                  name: telephone
+                  name: enabled
+                  type: boolean
+                  constraints:
+                    nullable: false
+  - changeSet:
+      id: auth1
+      author: Ksyu
+      changes:
+        - createTable:
+            tableName: authorities
+            schemaName: public
+            columns:
+              - column:
+                  name: id
+                  type: integer
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: username
                   type: varchar(50)
                   constraints:
-                    unique: true
-                    uniqueConstraintName: telephone_url
                     nullable: false
+              - column:
+                  name: authority
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+
   - changeSet:
       id: 4
       author: Ksyu

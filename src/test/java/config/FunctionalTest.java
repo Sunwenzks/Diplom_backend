@@ -1,9 +1,11 @@
 package config;
 
+import java.net.http.HttpClient;
+
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 
+import com.github.springtestdbunit.annotation.DatabaseSetup;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.TestExecutionListeners;
@@ -12,7 +14,11 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 
-@SpringBootTest
+@SpringBootTest(
+        webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT,
+        properties = {
+                "server.port=8042"
+        })
 @ExtendWith(SpringExtension.class)
 @Import({
         DbUnitConfig.class,
@@ -23,6 +29,12 @@ import org.springframework.test.context.transaction.TransactionalTestExecutionLi
         DirtiesContextTestExecutionListener.class,
         TransactionalTestExecutionListener.class,
         DbUnitTestExecutionListener.class })
-@AutoConfigureMockMvc
+@DatabaseSetup("UserData.xml")
 public class FunctionalTest {
+    protected String host = "http://localhost";
+
+    protected String port = ":8042";
+
+    protected HttpClient client = HttpClient.newBuilder()
+            .build();
 }
