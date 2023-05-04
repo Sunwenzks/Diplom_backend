@@ -139,6 +139,9 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<mainClass>ru.skydiver.backend.skydiver.SkydiverApplication</mainClass>
+				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.openapitools</groupId>
@@ -155,10 +158,11 @@
 						<configuration>
 							<!-- specify the swagger yaml -->
 							<inputSpec>${project.basedir}/api.yaml</inputSpec>
-
 							<!-- target to generate java server code -->
 							<generatorName>spring</generatorName>
-
+							<library>spring-boot</library>
+							<generateApiTests>false</generateApiTests>
+							<generateModelTests>false</generateModelTests>
 							<!-- hint: if you want to generate java client code
 								 you can use the following generator: <generatorName>java</generatorName> -->
 
@@ -167,6 +171,8 @@
 								<documentationProvider>springfox</documentationProvider>
 								<serializableModel>true</serializableModel>
 								<snapshotVersion>true</snapshotVersion>
+								<delegatePattern>true</delegatePattern>
+								<interfaceOnly>true</interfaceOnly>
 							</configOptions>
 
 						</configuration>
