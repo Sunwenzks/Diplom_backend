@@ -51,7 +51,7 @@ public class JwtTests extends FunctionalTest {
                         .build(),
                 HttpResponse.BodyHandlers.ofString()
         );
-        assertThat(expected.body()).isNotNull().isEqualTo("Страничка работает user");
+        assertThat(expected.body()).isNotNull().isEqualTo("{\"result\":\"Все ок user\"}");
     }
 
     @Test

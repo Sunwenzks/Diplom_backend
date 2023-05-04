@@ -1,0 +1,27 @@
+openapi: 3.0.3
+
+info:
+  title: Skydiver
+  description: API
+  version: LATEST
+
+tags:
+  - name: ping
+    description: metrics
+paths:
+  /info:
+    get:
+      description: Ручка для получения статуса приложения
+      tags:
+       - ping
+      responses:
+        200:
+          description: Все ок
+          content:
+            application/json:
+              schema:
+                  properties:
+                    result:
+                      type: string
+
+
