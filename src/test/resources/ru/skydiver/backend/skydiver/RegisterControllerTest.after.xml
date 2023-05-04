@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+    <Users id="100501" username="user" enabled="true"/>
+    <Users id="1" username="user2" enabled="true"/>
+    <Authorities id="100500" username="user" authority="write"/>
+    <Authorities id="1" username="user2" authority="buyer"/>
+    <Contacts id="1" user_name="user2" contact="mail@mail.ru" contact_type="EMAIL"/>
+</dataset>

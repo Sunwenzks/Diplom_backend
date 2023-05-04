@@ -171,7 +171,6 @@
 								<documentationProvider>springfox</documentationProvider>
 								<serializableModel>true</serializableModel>
 								<snapshotVersion>true</snapshotVersion>
-								<delegatePattern>true</delegatePattern>
 								<interfaceOnly>true</interfaceOnly>
 							</configOptions>
 

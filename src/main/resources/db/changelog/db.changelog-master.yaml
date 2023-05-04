@@ -245,4 +245,34 @@ databaseChangeLog:
               - column:
                   name: product_description
                   type: varchar(60000)
+  - changeSet:
+      id: 14
+      author: Ksyu
+      changes:
+        - createTable:
+            tableName: contacts
+            schemaName: public
+            columns:
+              - column:
+                  name: id
+                  type: integer
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: user_name
+                  type: text
+                  constraints:
+                    nullable: false
+              - column:
+                  name: contact
+                  type: text
+                  constraints:
+                    nullable: false
+              - column:
+                  name: contact_type
+                  type: text
+                  constraints:
+                    nullable: false
         

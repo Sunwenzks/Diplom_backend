@@ -8,6 +8,8 @@ info:
 tags:
   - name: ping
     description: metrics
+  - name: registration
+    description: процесс регистрации пользователя
 paths:
   /info:
     get:
@@ -20,8 +22,92 @@ paths:
           content:
             application/json:
               schema:
-                  properties:
-                    result:
-                      type: string
+                  $ref: '#/components/schemas/Status'
+  /registration/validateUserData:
+    post:
+      description: Валидация данных пользователя
+      operationId: validateUserData
+      tags:
+        - registration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegistrationValidationRequest'
+      responses:
+        200:
+          description: результат валидации
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegistrationValidationResponse'
+  /registration/register:
+    post:
+      description: регистрация нового пользователя
+      operationId: register
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegistrationUserRequest'
+      responses:
+        200:
+          description: Пользователь зарегистрирован
+components:
+  schemas:
+    Status:
+      type: object
+      properties:
+        result:
+          type: string
+    RegistrationValidationRequest:
+      description: запрос валидации регистрационных данных
+      properties:
+        userName:
+          type: string
+          nullable: false
+        email:
+          type: string
+          nullable: false
+
+    RegistrationValidationResponse:
+      description: результат валидации
+      properties:
+        validationStatus:
+          type: boolean
+          description: результат валидации
+        validationError:
+          type: array
+          description: Список ошибок валидации
+          items:
+            $ref: '#/components/schemas/RegistrationValidationError'
+    RegistrationValidationError:
+      type: object
+      description: Ошибка валидации
+      properties:
+        property:
+            $ref: '#/components/schemas/ValidationProperty'
+        message:
+          type: string
+    RegistrationUserRequest:
+      type: object
+      description: запрос регистрации нового пользователя
+      properties:
+        userName:
+          type: string
+          nullable: false
+        password:
+          type: string
+          nullable: false
+        email:
+          type: string
+          nullable: false
+    ValidationProperty:
+      type: string
+      enum:
+        - user
+        - contact
+
+
 
 

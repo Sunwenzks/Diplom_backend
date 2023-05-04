@@ -31,6 +31,7 @@ import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 import org.springframework.security.oauth2.server.resource.web.BearerTokenAuthenticationEntryPoint;
 import org.springframework.security.oauth2.server.resource.web.access.BearerTokenAccessDeniedHandler;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
+import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 @EnableWebSecurity
@@ -52,6 +53,7 @@ public class RestConfig {
                         .mvcMatchers("/token").permitAll()
                         .mvcMatchers("/category/*").permitAll()
                         .mvcMatchers("/product/*").permitAll()
+                        .mvcMatchers("/registration/*").permitAll()
                         .anyRequest().authenticated()
                 )
                 .csrf(AbstractHttpConfigurer::disable)
@@ -67,7 +69,7 @@ public class RestConfig {
     }
 
     @Bean
-    UserDetailsService users(DataSource dataSource) {
+    UserDetailsManager users(DataSource dataSource) {
         return new JdbcUserDetailsManager(dataSource);
     }
 
