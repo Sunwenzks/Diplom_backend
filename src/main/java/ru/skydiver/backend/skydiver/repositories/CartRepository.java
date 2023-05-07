@@ -42,6 +42,16 @@ public class CartRepository {
         jdbcTemplate.update(sql, params);
     }
 
+    public void removeFromCart(String userId, int productId) {
+        var sql = "delete from " + CART_TABLE_NAME +
+                " where user_id = :userId and product_id = :productId";
+        var params = Map.of(
+                "userId", userId,
+                "productId", productId
+        );
+        jdbcTemplate.update(sql, params);
+    }
+
     private static class CartRowMapper implements RowMapper<CartProductEntity> {
         @Override
         public CartProductEntity mapRow(ResultSet rs, int rowNum) throws SQLException {

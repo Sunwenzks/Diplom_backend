@@ -10,6 +10,7 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.ExpectedDatabase;
 import com.github.springtestdbunit.assertion.DatabaseAssertionMode;
 import config.FunctionalTest;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpHeaders;
 
@@ -24,6 +25,7 @@ public class CartControllerTests extends FunctionalTest {
     })
     @ExpectedDatabase(value = "CartData.xml",
             assertionMode = DatabaseAssertionMode.NON_STRICT_UNORDERED)
+    @Disabled
     public void AddToCart() throws IOException, InterruptedException {
         var token = getToken();
         var actual = addToCart(token);

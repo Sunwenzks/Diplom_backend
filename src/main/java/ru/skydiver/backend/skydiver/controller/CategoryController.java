@@ -21,7 +21,7 @@ public class CategoryController implements CategoryApi {
     }
 
     @Override
-    public ResponseEntity<CategoryResponse> categoryListGet(Boolean isMain) {
+    public ResponseEntity<CategoryResponse> categoryList(Boolean isMain) {
         var categories = (isMain != null && isMain) ?
                 categoryService.getMainCategory() :
                 categoryService.getAllCategories();

@@ -22,4 +22,8 @@ public class CartService {
     public List<CartProductEntity> getUserCart(String userId) {
         return cartRepository.getCartByUser(userId);
     }
+
+    public void removeFromCart(String userId, int productId) {
+        cartRepository.removeFromCart(userId, productId);
+    }
 }

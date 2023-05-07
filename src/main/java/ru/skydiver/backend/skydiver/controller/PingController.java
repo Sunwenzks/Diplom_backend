@@ -13,8 +13,8 @@ public class PingController implements InfoApi {
     public PingController() {
     }
 
-   @Override
-    public ResponseEntity<Status> infoGet() {
+    @Override
+    public ResponseEntity<Status> info() {
         var userName = SecurityContextHolder.getContext().getAuthentication().getName();
         return ResponseEntity.ok(new Status().result("Все ок " + userName));
     }

@@ -20,6 +20,7 @@ paths:
   /category/list:
     get:
       description: Получить все категории
+      operationId: categoryList
       tags:
         - category
       parameters:
@@ -39,6 +40,7 @@ paths:
   /product/info:
     get:
       description: Получение информации о продуке по id
+      operationId: productInfo
       tags:
         - product
       parameters:
@@ -58,6 +60,7 @@ paths:
   /product/list:
     get:
       description: Ручка с фильтрами для списка продуктов
+      operationId: productList
       tags:
         - product
       parameters:
@@ -91,6 +94,7 @@ paths:
   /product/search:
     get:
       description: Поиск продукта по имени
+      operationId: productSearch
       tags:
         - product
       parameters:
@@ -110,6 +114,7 @@ paths:
   /info:
     get:
       description: Ручка для получения статуса приложения
+      operationId: info
       tags:
         - ping
       responses:
@@ -152,19 +157,21 @@ paths:
   /cart/add:
     post:
       description: добавить товар в корзину
+      operationId: addToCart
       tags:
         - cart
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/AddToCartRequest'
+              $ref: '#/components/schemas/CartRequest'
       responses:
         200:
           description: "ok"
   /cart/getCart:
     get:
       description: получить список товаров в корзине
+      operationId: getCart
       tags:
         - cart
       responses:
@@ -174,6 +181,20 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CartResponse'
+  /cart/remove:
+    post:
+      description: удалить из корзины
+      operationId: removeFromCart
+      tags:
+        - cart
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CartRequest'
+      responses:
+        200:
+          description: 'ok'
 components:
   schemas:
     CartResponse:
@@ -205,7 +226,7 @@ components:
         amount:
           type: integer
 
-    AddToCartRequest:
+    CartRequest:
       type: object
       description: запрос на добавление товара в корзину
       properties:

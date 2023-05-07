@@ -21,17 +21,7 @@ public class ProductController implements ProductApi {
     }
 
     @Override
-    public ResponseEntity<ProductSearchResponse> productSearchGet(String searchString) {
-        return ResponseEntity.ok(
-                new ProductSearchResponse().products(
-                        productService.searchProduct(searchString)
-                                .stream()
-                                .map(this::toProduct)
-                                .collect(Collectors.toList())));
-    }
-
-    @Override
-    public ResponseEntity<Product> productInfoGet(Integer productId) {
+    public ResponseEntity<Product> productInfo(Integer productId) {
         return ResponseEntity.ok(
                 productService.getSearchProduct(productId)
                         .map(this::toProduct)
@@ -39,14 +29,24 @@ public class ProductController implements ProductApi {
     }
 
     @Override
-    public ResponseEntity<ProductSearchResponse> productListGet(Integer category, Integer priceFrom, Integer priceTo,
-                                                                String searchString) {
+    public ResponseEntity<ProductSearchResponse> productList(Integer category, Integer priceFrom, Integer priceTo,
+                                                             String searchString) {
         var products =
                 productService.searchProduct(category, priceFrom, priceTo, searchString)
                         .stream()
                         .map(this::toProduct)
                         .toList();
         return ResponseEntity.ok(new ProductSearchResponse().products(products));
+    }
+
+    @Override
+    public ResponseEntity<ProductSearchResponse> productSearch(String searchString) {
+        return ResponseEntity.ok(
+                new ProductSearchResponse().products(
+                        productService.searchProduct(searchString)
+                                .stream()
+                                .map(this::toProduct)
+                                .collect(Collectors.toList())));
     }
 
     private Product toProduct(ProductEntity entity) {
