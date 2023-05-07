@@ -256,7 +256,7 @@ databaseChangeLog:
       author: Ksyu
       changes:
         - createTable:
-            tableName: test2
+            tableName: test3
             schemaName: public
             columns:
               - column:
