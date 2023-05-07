@@ -81,6 +81,96 @@ databaseChangeLog:
                   constraints:
                     nullable: false
   - changeSet:
+      id: p1
+      author: Ksyu
+      changes:
+        - createTable:
+            tableName: product
+            schemaName: public
+            columns:
+              - column:
+                  name: id
+                  type: integer
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(50)
+                  constraints:
+                    unique: true
+                    nullable: false
+              - column:
+                  name: price
+                  type: money
+                  constraints:
+                    unique: true
+                    nullable: false
+              - column:
+                  name: description
+                  type: text
+              - column:
+                  name: image_url
+                  type: text
+              - column:
+                  name: category_id
+                  type: integer
+                  constraints:
+                    nullable: false
+
+        - addForeignKeyConstraint:
+            baseColumnNames: category_id
+            baseTableName: product
+            baseTableSchemaName: public
+            constraintName: fk_category_product
+            referencedColumnNames: id
+            referencedTableName: category
+            referencedTableSchemaName: public
+            validate: true
+  - changeSet:
+      id: cart1
+      author: Ksyu
+      changes:
+        - createTable:
+            tableName: cart
+            schemaName: public
+            columns:
+              - column:
+                  name: user_id
+                  type: text
+                  constraints:
+                    nullable: false
+              - column:
+                  name: product_id
+                  type: integer
+                  constraints:
+                    nullable: false
+              - column:
+                  name: amount
+                  type: integer
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseColumnNames: user_id
+            baseTableName: cart
+            baseTableSchemaName: public
+            constraintName: fk_cart_user
+            referencedColumnNames: username
+            referencedTableName: users
+            referencedTableSchemaName: public
+            validate: true
+
+        - addForeignKeyConstraint:
+            baseColumnNames: product_id
+            baseTableName: cart
+            baseTableSchemaName: public
+            constraintName: fk_cart_product
+            referencedColumnNames: id
+            referencedTableName: product
+            referencedTableSchemaName: public
+            validate: true
+  - changeSet:
       id: auth1
       author: Ksyu
       changes:
@@ -132,56 +222,6 @@ databaseChangeLog:
                     unique: true
                     uniqueConstraintName: date_url
                     nullable: false
-  - changeSet:
-      id: p1
-      author: Ksyu
-      changes:
-        - createTable:
-            tableName: product
-            schemaName: public
-            columns:
-              - column:
-                  name: id
-                  type: integer
-                  autoIncrement: true
-                  constraints:
-                    primaryKey: true
-                    nullable: false
-              - column:
-                  name: name
-                  type: varchar(50)
-                  constraints:
-                    unique: true
-                    nullable: false
-              - column:
-                  name: price
-                  type: money
-                  constraints:
-                    unique: true
-                    nullable: false
-              - column:
-                  name: description
-                  type: text
-              - column:
-                  name: image_url
-                  type: text
-              - column:
-                  name: category_id
-                  type: integer
-                  constraints:
-                    nullable: false
-
-        - addForeignKeyConstraint:
-            baseColumnNames: category_id
-            baseTableName: product
-            baseTableSchemaName: public
-            constraintName: fk_category_product
-            referencedColumnNames: id
-            referencedTableName: category
-            referencedTableSchemaName: public
-            validate: true
-
-
   - changeSet:
       id: 14
       author: Ksyu

@@ -14,6 +14,8 @@ tags:
     description: получение/поиск продуктов
   - name: category
     description: Получение категорий
+  - name: cart
+    description: методы для работы с корзиной
 paths:
   /category/list:
     get:
@@ -53,7 +55,39 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Product'
-
+  /product/list:
+    get:
+      description: Ручка с фильтрами для списка продуктов
+      tags:
+        - product
+      parameters:
+        - name: priceFrom
+          in: query
+          description: мин цена
+          schema:
+            type: integer
+        - name: priceTo
+          in: query
+          description: max цена
+          schema:
+            type: integer
+        - name: searchString
+          in: query
+          description: поисковая строка
+          schema:
+            type: string
+        - name: category
+          in: query
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: список продуктов
+          content:
+             application/json:
+               schema:
+                 $ref: '#/components/schemas/ProductSearchResponse'
   /product/search:
     get:
       description: Поиск продукта по имени
@@ -68,24 +102,23 @@ paths:
             type: string
       responses:
         200:
-          description:  Успешный поиск продукта
+          description: Успешный поиск продукта
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ProductSearchResponse'
-
   /info:
     get:
       description: Ручка для получения статуса приложения
       tags:
-       - ping
+        - ping
       responses:
         200:
           description: Все ок
           content:
             application/json:
               schema:
-                  $ref: '#/components/schemas/Status'
+                $ref: '#/components/schemas/Status'
   /registration/validateUserData:
     post:
       description: Валидация данных пользователя
@@ -116,8 +149,74 @@ paths:
       responses:
         200:
           description: Пользователь зарегистрирован
+  /cart/add:
+    post:
+      description: добавить товар в корзину
+      tags:
+        - cart
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddToCartRequest'
+      responses:
+        200:
+          description: "ok"
+  /cart/getCart:
+    get:
+      description: получить список товаров в корзине
+      tags:
+        - cart
+      responses:
+        200:
+          description: "ok"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CartResponse'
 components:
   schemas:
+    CartResponse:
+      type: object
+      description: Список товаров в корзине пользователя
+      properties:
+        products:
+          type: array
+          items:
+            $ref: '#/components/schemas/CartProduct'
+
+    CartProduct:
+      type: object
+      properties:
+        id:
+          description: id продукта
+          type: integer
+          nullable: false
+        name:
+          description: имя продукта
+          type: string
+          nullable: false
+        price:
+          description: цена
+          type: integer
+        productImage:
+          description: Изображение продукта
+          type: string
+        amount:
+          type: integer
+
+    AddToCartRequest:
+      type: object
+      description: запрос на добавление товара в корзину
+      properties:
+        productId:
+          type: integer
+          nullable: false
+        amount:
+          type: integer
+          nullable: false
+
+
     ProductSearchResponse:
       type: object
       properties:
@@ -179,7 +278,7 @@ components:
       description: Ошибка валидации
       properties:
         property:
-            $ref: '#/components/schemas/ValidationProperty'
+          $ref: '#/components/schemas/ValidationProperty'
         message:
           type: string
     RegistrationUserRequest:

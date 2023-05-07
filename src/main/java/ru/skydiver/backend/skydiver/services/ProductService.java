@@ -20,4 +20,8 @@ public class ProductService {
     public Optional<ProductEntity> getSearchProduct(Integer productId){
         return productRepository.getSearchProduct(productId);
     }
+
+    public List<ProductEntity> searchProduct(int category, Integer priceFrom, Integer priceTo, String searchString) {
+       return productRepository.searchProduct(category, priceFrom, priceTo, searchString);
+    }
 }

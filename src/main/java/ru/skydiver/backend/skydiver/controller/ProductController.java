@@ -38,6 +38,17 @@ public class ProductController implements ProductApi {
                         .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)));
     }
 
+    @Override
+    public ResponseEntity<ProductSearchResponse> productListGet(Integer category, Integer priceFrom, Integer priceTo,
+                                                                String searchString) {
+        var products =
+                productService.searchProduct(category, priceFrom, priceTo, searchString)
+                        .stream()
+                        .map(this::toProduct)
+                        .toList();
+        return ResponseEntity.ok(new ProductSearchResponse().products(products));
+    }
+
     private Product toProduct(ProductEntity entity) {
         return new Product()
                 .id(entity.getIdProduct())
