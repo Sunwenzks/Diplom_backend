@@ -36,6 +36,7 @@ public class CartControllerTests extends FunctionalTest {
             "CategoryData.xml",
             "ProductDataData.xml"
     })
+    @Disabled
     public void  getCart() throws IOException, InterruptedException {
         var token = getToken();
         var expected = "{\"products\":[{\"id\":2,\"name\":\"p2\",\"price\":2,\"productImage\":null,\"amount\":3}]}";

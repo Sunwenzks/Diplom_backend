@@ -39,7 +39,6 @@ databaseChangeLog:
               - column:
                   name: main_page
                   type: boolean
-                  defaultValue: false
                   constraints:
                     nullable: false
               - column:
@@ -252,4 +251,15 @@ databaseChangeLog:
                   type: text
                   constraints:
                     nullable: false
+  - changeSet:
+      id: 145
+      author: Ksyu
+      changes:
+        - createTable:
+            tableName: test1
+            schemaName: public
+            columns:
+              - column:
+                  name: on
+                  type: text
         
