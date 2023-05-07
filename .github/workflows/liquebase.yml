@@ -9,6 +9,12 @@ jobs:
     name: Liquibase Action
     steps:
       - uses: actions/checkout@v2
+      - uses: nvoxland/jar-download-action@main
+        with:
+          groupId: org.postgresql
+          artifactId: postgresql
+          version: 42.4.0
+          outputDirectory: liquibase_libs
       - uses: liquibase/liquibase-github-action@v2
         with:
           operation: 'update'
