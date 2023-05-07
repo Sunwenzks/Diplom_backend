@@ -1,33 +1,50 @@
 package ru.skydiver.backend.skydiver.controller;
 
-import org.springframework.data.crossstore.ChangeSetPersister;
+import java.util.stream.Collectors;
+
+import org.openapitools.api.ProductApi;
+import org.openapitools.model.Product;
+import org.openapitools.model.ProductSearchResponse;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
-import ru.skydiver.backend.skydiver.model.ProductDto;
+import ru.skydiver.backend.skydiver.model.ProductEntity;
 import ru.skydiver.backend.skydiver.services.ProductService;
 
-import java.util.List;
-
 @RestController
-public class ProductController {
+public class ProductController implements ProductApi {
     private final ProductService productService;
 
     public ProductController(ProductService productService) {
         this.productService = productService;
     }
 
-    @CrossOrigin
-    @GetMapping("/product/search")
-    public List<ProductDto> searchProduct(@RequestParam("searchString") String searchString) {
-        return productService.searchProduct(searchString);
+    @Override
+    public ResponseEntity<ProductSearchResponse> productSearchGet(String searchString) {
+        return ResponseEntity.ok(
+                new ProductSearchResponse().products(
+                        productService.searchProduct(searchString)
+                                .stream()
+                                .map(this::toProduct)
+                                .collect(Collectors.toList())));
     }
-    @CrossOrigin
-    @GetMapping("/product/info")
-    public ProductDto getSearchProduct(@RequestParam("productId") Integer productId){
-        return productService.getSearchProduct(productId).orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+    @Override
+    public ResponseEntity<Product> productInfoGet(Integer productId) {
+        return ResponseEntity.ok(
+                productService.getSearchProduct(productId)
+                        .map(this::toProduct)
+                        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)));
+    }
+
+    private Product toProduct(ProductEntity entity) {
+        return new Product()
+                .id(entity.getIdProduct())
+                .name(entity.getName())
+                .categoryId(entity.getIdCategory())
+                .productImage(entity.getProductURL())
+                .productDescription(entity.getProduct_description())
+                .price(entity.getPrice());
     }
 }

@@ -10,7 +10,70 @@ tags:
     description: metrics
   - name: registration
     description: процесс регистрации пользователя
+  - name: product
+    description: получение/поиск продуктов
+  - name: category
+    description: Получение категорий
 paths:
+  /category/list:
+    get:
+      description: Получить все категории
+      tags:
+        - category
+      parameters:
+        - name: isMain
+          in: query
+          description: вернуть только категории для главной страницы
+          required: false
+          schema:
+            type: boolean
+      responses:
+        200:
+          description: Список категорий
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategoryResponse'
+  /product/info:
+    get:
+      description: Получение информации о продуке по id
+      tags:
+        - product
+      parameters:
+        - name: productId
+          in: query
+          description: product id
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Успешный поиск продукта
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+
+  /product/search:
+    get:
+      description: Поиск продукта по имени
+      tags:
+        - product
+      parameters:
+        - name: searchString
+          in: query
+          description: поисковая строка
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description:  Успешный поиск продукта
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductSearchResponse'
+
   /info:
     get:
       description: Ручка для получения статуса приложения
@@ -55,6 +118,37 @@ paths:
           description: Пользователь зарегистрирован
 components:
   schemas:
+    ProductSearchResponse:
+      type: object
+      properties:
+        products:
+          type: array
+          items:
+            $ref: '#/components/schemas/Product'
+    Product:
+      type: object
+      properties:
+        id:
+          description: id продукта
+          type: integer
+          nullable: false
+        name:
+          description: имя продукта
+          type: string
+          nullable: false
+        categoryId:
+          description: id категории продукта
+          type: integer
+          nullable: false
+        price:
+          description: цена
+          type: integer
+        productImage:
+          description: Изображение продукта
+          type: string
+        productDescription:
+          description: Описание продукта
+          type: string
     Status:
       type: object
       properties:
@@ -69,7 +163,6 @@ components:
         email:
           type: string
           nullable: false
-
     RegistrationValidationResponse:
       description: результат валидации
       properties:
@@ -107,6 +200,36 @@ components:
       enum:
         - user
         - contact
+    CategoryResponse:
+      type: object
+      description: Список категорий
+      properties:
+        categories:
+          type: array
+          items:
+            $ref: '#/components/schemas/Category'
+
+    Category:
+      description: Category
+      type: object
+      properties:
+        id:
+          description: id категории
+          type: integer
+          nullable: false
+        name:
+          description: название категории
+          type: string
+          nullable: false
+        mainCategory:
+          description: категория для главной страницы
+          type: boolean
+          nullable: true
+          default: false
+        imageUrl:
+          type: string
+          nullable: true
+
 
 
 

@@ -8,7 +8,6 @@ import java.util.Optional;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
-import ru.skydiver.backend.skydiver.model.CategoryDto;
 import ru.skydiver.backend.skydiver.model.ContactEntity;
 import ru.skydiver.backend.skydiver.model.ContactTypes;
 

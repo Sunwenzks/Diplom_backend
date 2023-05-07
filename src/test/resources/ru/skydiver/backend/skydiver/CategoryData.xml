@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <dataset>
-    <Category id="1" name="First" main_page="true" pictures="somePicUrl"/>
-    <Category id="2" name="Second" main_page="false" pictures="somePicUrl2"/>
+    <Category id="1" name="First" main_page="true" image_url="somePicUrl"/>
+    <Category id="2" name="Second" main_page="false" image_url="somePicUrl2"/>
 </dataset>

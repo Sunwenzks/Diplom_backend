@@ -10,8 +10,6 @@ import com.github.springtestdbunit.annotation.DatabaseTearDown;
 import config.FunctionalTest;
 import org.junit.jupiter.api.Test;
 
-
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class CategoryControllerTests extends FunctionalTest {
@@ -21,12 +19,12 @@ public class CategoryControllerTests extends FunctionalTest {
     @DatabaseSetup("CategoryData.xml")
     @DatabaseTearDown(value = "CategoryData.xml", type = DatabaseOperation.DELETE)
     public void getAllCategories() throws Exception {
-        var expected = "[" +
-                "{\"id\":1,\"name\":\"First\",\"imageURL\":\"somePicUrl\",\"mainPage\":true}," +
-                "{\"id\":2,\"name\":\"Second\",\"imageURL\":\"somePicUrl2\",\"mainPage\":false}" +
-                "]";
+        var expected = "{\"categories\":" +
+                "[{\"id\":1,\"name\":\"First\",\"mainCategory\":{\"present\":true}," +
+                "\"imageUrl\":{\"present\":true}},{\"id\":2,\"name\":\"Second\",\"mainCategory\":{\"present\":true}," +
+                "\"imageUrl\":{\"present\":true}}]}";
 
-        var actual = client.send(HttpRequest.newBuilder().uri(URI.create(host + port + "/category/all"))
+        var actual = client.send(HttpRequest.newBuilder().uri(URI.create(host + port + "/category/list"))
                 .build(), HttpResponse.BodyHandlers.ofString());
 
         assertThat(actual.body()).isEqualTo(expected);
@@ -36,10 +34,10 @@ public class CategoryControllerTests extends FunctionalTest {
     @DatabaseSetup("CategoryData.xml")
     @DatabaseTearDown(value = "CategoryData.xml", type = DatabaseOperation.DELETE)
     public void getMainPageCategories() throws Exception {
-        var expected = "[" +
-                "{\"id\":1,\"name\":\"First\",\"imageURL\":\"somePicUrl\",\"mainPage\":true}" +
-                "]";
-        var actual = client.send(HttpRequest.newBuilder().uri(URI.create(host + port + "/category/main"))
+        var expected = "{\"categories\":[{\"id\":1,\"name\":\"First\",\"mainCategory\":{\"present\":true}," +
+                "\"imageUrl\":{\"present\":true}}]}";
+        var actual = client.send(HttpRequest.newBuilder().uri(
+                URI.create(host + port + "/category/list?isMain=true"))
                 .build(), HttpResponse.BodyHandlers.ofString());
 
         assertThat(actual.body()).isEqualTo(expected);

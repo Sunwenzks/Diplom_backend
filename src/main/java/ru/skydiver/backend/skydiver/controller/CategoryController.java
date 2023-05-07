@@ -1,16 +1,18 @@
 package ru.skydiver.backend.skydiver.controller;
 
 
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
+import java.util.stream.Collectors;
+
+import org.openapitools.api.CategoryApi;
+import org.openapitools.model.Category;
+import org.openapitools.model.CategoryResponse;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
-import ru.skydiver.backend.skydiver.model.CategoryDto;
+import ru.skydiver.backend.skydiver.model.CategoryEntity;
 import ru.skydiver.backend.skydiver.services.CategoryService;
 
-import java.util.List;
-
 @RestController
-public class CategoryController {
+public class CategoryController implements CategoryApi {
 
     private final CategoryService categoryService;
 
@@ -18,14 +20,26 @@ public class CategoryController {
         this.categoryService = categoryService;
     }
 
-    @CrossOrigin
-    @GetMapping("/category/all")
-    public List<CategoryDto> getCategoryAll() {
-       return categoryService.getAllCategories();
+    @Override
+    public ResponseEntity<CategoryResponse> categoryListGet(Boolean isMain) {
+        var categories = (isMain != null && isMain) ?
+                categoryService.getMainCategory() :
+                categoryService.getAllCategories();
+        return ResponseEntity.ok(
+                new CategoryResponse()
+                        .categories(
+                                categories.stream()
+                                        .map(this::toCategory)
+                                        .collect(Collectors.toList())
+                        )
+        );
     }
-    @CrossOrigin
-    @GetMapping("/category/main")
-    public List<CategoryDto> getMainCategory() {
-        return categoryService.getMainCategory();
+
+    private Category toCategory(CategoryEntity entity) {
+        return new Category()
+                .id(entity.getId())
+                .name(entity.getName())
+                .mainCategory(entity.isMainPage())
+                .imageUrl(entity.getImageURL());
     }
 }

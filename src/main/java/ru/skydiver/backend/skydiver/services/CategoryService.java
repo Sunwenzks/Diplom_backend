@@ -1,11 +1,11 @@
 package ru.skydiver.backend.skydiver.services;
 
 
-import org.springframework.stereotype.Service;
-import ru.skydiver.backend.skydiver.model.CategoryDto;
-import ru.skydiver.backend.skydiver.repositories.CategoryRepository;
-
 import java.util.List;
+
+import org.springframework.stereotype.Service;
+import ru.skydiver.backend.skydiver.model.CategoryEntity;
+import ru.skydiver.backend.skydiver.repositories.CategoryRepository;
 
 @Service
 public class CategoryService {
@@ -19,13 +19,12 @@ public class CategoryService {
             throw new IllegalArgumentException(); //исключение при добавлении существующей категории
         }
         categoryRepository.addCategory(categoryName);
-
     }
 
-    public List<CategoryDto> getAllCategories() {
+    public List<CategoryEntity> getAllCategories() {
        return categoryRepository.getAllCategories();
     }
-    public List<CategoryDto> getMainCategory(){
+    public List<CategoryEntity> getMainCategory(){
         return categoryRepository.getMainCategory();
     }
 }

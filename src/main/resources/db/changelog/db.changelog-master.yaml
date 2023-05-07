@@ -15,10 +15,9 @@ databaseChangeLog:
             remarks: AString
             schemaName: public
             tableName: person
-
   - changeSet:
       id: 2
-      author: Nick
+      author: Ksyu
       changes:
         - createTable:
             tableName: category
@@ -36,7 +35,6 @@ databaseChangeLog:
                   type: varchar(50)
                   constraints:
                     unique: true
-                    uniqueConstraintName: category_url
                     nullable: false
               - column:
                   name: main_page
@@ -44,6 +42,9 @@ databaseChangeLog:
                   defaultValue: false
                   constraints:
                     nullable: false
+              - column:
+                  name: image_url
+                  type: text
 
   - changeSet:
       id: 3
@@ -104,7 +105,6 @@ databaseChangeLog:
                   type: varchar(50)
                   constraints:
                     nullable: false
-
   - changeSet:
       id: 4
       author: Ksyu
@@ -133,7 +133,7 @@ databaseChangeLog:
                     uniqueConstraintName: date_url
                     nullable: false
   - changeSet:
-      id: 5
+      id: p1
       author: Ksyu
       changes:
         - createTable:
@@ -141,81 +141,38 @@ databaseChangeLog:
             schemaName: public
             columns:
               - column:
-                  name: id_product
+                  name: id
                   type: integer
                   autoIncrement: true
                   constraints:
                     primaryKey: true
                     nullable: false
               - column:
-                  name: name_product
+                  name: name
                   type: varchar(50)
                   constraints:
                     unique: true
-                    uniqueConstraintName: name_product_url
-                    nullable: false
-              - column:
-                  name: id
-                  type: integer
-                  constraints:
                     nullable: false
               - column:
                   name: price
                   type: money
                   constraints:
                     unique: true
-                    uniqueConstraintName: price_url
-                    nullable: false
-  - changeSet:
-      id: 6
-      author: Ksyu
-      changes:
-        - createTable:
-            tableName: shopping_cart
-            schemaName: public
-            columns:
-              - column:
-                  name: id_order
-                  type: integer
-                  autoIncrement: true
-                  constraints:
-                    primaryKey: true
                     nullable: false
               - column:
-                  name: id_product
+                  name: description
+                  type: text
+              - column:
+                  name: image_url
+                  type: text
+              - column:
+                  name: category_id
                   type: integer
                   constraints:
                     nullable: false
 
-  - changeSet:
-      id: 7
-      author: Ksyu
-      changes:
-        - renameColumn:
-            columnDataType: int
-            newColumnName: id_category
-            oldColumnName: id
-            schemaName: public
-            tableName: product
-
-  - changeSet:
-      id: 10
-      author: Ksyu
-      changes:
-        - addColumn:
-            schemaName: public
-            tableName: category
-            columns:
-            - column:
-                name: pictures
-                type: varchar(20000)
-
-  - changeSet:
-      id: 11
-      author: Ksyu
-      changes:
         - addForeignKeyConstraint:
-            baseColumnNames: id_category
+            baseColumnNames: category_id
             baseTableName: product
             baseTableSchemaName: public
             constraintName: fk_category_product
@@ -223,28 +180,8 @@ databaseChangeLog:
             referencedTableName: category
             referencedTableSchemaName: public
             validate: true
-  - changeSet:
-      id: 12
-      author: Ksyu
-      changes:
-        - addColumn:
-            schemaName: public
-            tableName: product
-            columns:
-              - column:
-                  name: pictures_product
-                  type: varchar(20000)
-  - changeSet:
-      id: 13
-      author: Ksyu
-      changes:
-        - addColumn:
-            schemaName: public
-            tableName: product
-            columns:
-              - column:
-                  name: product_description
-                  type: varchar(60000)
+
+
   - changeSet:
       id: 14
       author: Ksyu

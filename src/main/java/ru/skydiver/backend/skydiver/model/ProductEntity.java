@@ -1,13 +1,13 @@
 package ru.skydiver.backend.skydiver.model;
 
-public class ProductDto {
+public class ProductEntity {
     private final int id_product;
     private final String name;
     private final int id_category;
     private final int price;
    private final String productURL;
    private final String product_description;
-  public ProductDto(int id_product, String name, int id_category, int price, String productURL, String product_description) {
+  public ProductEntity(int id_product, String name, int id_category, int price, String productURL, String product_description) {
         this.id_product = id_product;
         this.name = name;
         this.id_category = id_category;

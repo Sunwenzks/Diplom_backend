@@ -1,14 +1,14 @@
 package ru.skydiver.backend.skydiver.repositories;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
+
 import org.apache.commons.lang3.NotImplementedException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
-import ru.skydiver.backend.skydiver.model.CategoryDto;
-
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.List;
+import ru.skydiver.backend.skydiver.model.CategoryEntity;
 
 @Component
 public class CategoryRepository {
@@ -18,11 +18,11 @@ public class CategoryRepository {
     public CategoryRepository(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
-    public List<CategoryDto> getAllCategories() {
+    public List<CategoryEntity> getAllCategories() {
         var sql = "select * from " + TABLE_NAME;
        return jdbcTemplate.query(sql, ROW_MAPPER);
     }
-    public List<CategoryDto> getMainCategory(){
+    public List<CategoryEntity> getMainCategory(){
         var sql = "select * from " + TABLE_NAME + " where main_page = true";
         return jdbcTemplate.query(sql, ROW_MAPPER);
     }
@@ -32,14 +32,14 @@ public class CategoryRepository {
     public void addCategory(String categoryName) {
         throw new NotImplementedException();
     }
-    private static class CategoryRowMapper implements RowMapper<CategoryDto> {
+    private static class CategoryRowMapper implements RowMapper<CategoryEntity> {
         @Override
-        public CategoryDto mapRow(ResultSet rs, int rowNum) throws SQLException {
+        public CategoryEntity mapRow(ResultSet rs, int rowNum) throws SQLException {
             var id = rs.getInt("id");
             var name = rs.getString("name");
             var isMain = rs.getBoolean("main_page");
-            var imageURL = rs.getString("pictures");
-            return new CategoryDto(id, name, isMain, imageURL);
+            var imageURL = rs.getString("image_url");
+            return new CategoryEntity(id, name, isMain, imageURL);
         }
     }
 }
