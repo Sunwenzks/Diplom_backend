@@ -18,7 +18,7 @@ jobs:
       - uses: liquibase/liquibase-github-action@v2
         with:
           operation: 'update'
-          classpath: 'github/workspace/liquibase_libs'
+          classpath: 'liquibase_libs'
           changeLogFile: 'db.changelog-master.yaml'
           username: ${{ secrets.DBHOST }}
           password: ${{ secrets.DBPASSOWRD }}
