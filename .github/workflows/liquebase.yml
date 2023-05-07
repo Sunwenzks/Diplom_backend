@@ -1,0 +1,19 @@
+on:
+  push:
+    paths:
+      - 'src/main/resources/db/changelog/**'
+
+jobs:
+  liquibase-action:
+    runs-on: ubuntu-latest
+    name: Liquibase Action
+    steps:
+      - uses: actions/checkout@v2
+      - uses: liquibase/liquibase-github-action@v2
+        with:
+          operation: 'update'
+          classpath: 'src/main/resources/db/changelog'
+          changeLogFile: 'db.changelog-master.yaml'
+          username: ${{ secrets.DBHOST }}
+          password: ${{ secrets.DBPASSOWRD }}
+          url: ${{ secrets.DBUSER }}
