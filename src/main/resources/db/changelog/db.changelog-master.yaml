@@ -44,7 +44,6 @@ databaseChangeLog:
               - column:
                   name: image_url
                   type: text
-
   - changeSet:
       id: 3
       author: Ksyu
