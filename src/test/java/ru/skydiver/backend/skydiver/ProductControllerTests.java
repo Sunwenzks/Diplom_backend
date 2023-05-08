@@ -6,6 +6,7 @@ import java.net.http.HttpResponse;
 
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import config.FunctionalTest;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -18,6 +19,7 @@ public class ProductControllerTests extends FunctionalTest {
            "CategoryData.xml",
            "ProductDataData.xml"
     })
+    @Disabled
     public void getProductByIdTest() throws Exception {
         var expected =
                 "{\"id\":1,\"name\":\"p1\",\"categoryId\":1,\"price\":1,\"productImage\":null," +

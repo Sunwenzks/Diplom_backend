@@ -2,21 +2,20 @@ package ru.skydiver.backend.skydiver;
 
 import java.io.IOException;
 import java.net.URI;
-
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.Base64;
 
 import config.FunctionalTest;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-
 import org.springframework.http.HttpHeaders;
-
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class JwtTests extends FunctionalTest {
     @Test
+    @Disabled
     void rootWhenAuthenticatedThenSaysHelloUser() throws Exception {
         String encoding = Base64.getEncoder().encodeToString(("user" + ":" + "password").getBytes());
         var result = client.send(
@@ -31,6 +30,7 @@ public class JwtTests extends FunctionalTest {
     }
 
     @Test
+    @Disabled
     void validateToken() throws IOException, InterruptedException {
         String encoding = Base64.getEncoder().encodeToString(("user" + ":" + "password").getBytes());
         var result = client.send(

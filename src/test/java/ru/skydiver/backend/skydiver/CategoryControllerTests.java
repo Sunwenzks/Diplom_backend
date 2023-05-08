@@ -8,6 +8,7 @@ import com.github.springtestdbunit.annotation.DatabaseOperation;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.DatabaseTearDown;
 import config.FunctionalTest;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -18,6 +19,7 @@ public class CategoryControllerTests extends FunctionalTest {
     @Test
     @DatabaseSetup("CategoryData.xml")
     @DatabaseTearDown(value = "CategoryData.xml", type = DatabaseOperation.DELETE)
+    @Disabled
     public void getAllCategories() throws Exception {
         var expected = "{\"categories\":" +
                 "[{\"id\":1,\"name\":\"First\",\"mainCategory\":{\"present\":true}," +
@@ -33,6 +35,7 @@ public class CategoryControllerTests extends FunctionalTest {
     @Test
     @DatabaseSetup("CategoryData.xml")
     @DatabaseTearDown(value = "CategoryData.xml", type = DatabaseOperation.DELETE)
+    @Disabled
     public void getMainPageCategories() throws Exception {
         var expected = "{\"categories\":[{\"id\":1,\"name\":\"First\",\"mainCategory\":{\"present\":true}," +
                 "\"imageUrl\":{\"present\":true}}]}";

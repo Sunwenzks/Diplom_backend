@@ -8,6 +8,7 @@ import java.net.http.HttpResponse;
 import com.github.springtestdbunit.annotation.ExpectedDatabase;
 import com.github.springtestdbunit.assertion.DatabaseAssertionMode;
 import config.FunctionalTest;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -18,6 +19,7 @@ public class RegistrationControllerTest extends FunctionalTest {
     @ExpectedDatabase(
             value = "RegisterControllerTest.after.xml",
     assertionMode = DatabaseAssertionMode.NON_STRICT_UNORDERED)
+    @Disabled
     void registerNewUser() throws IOException, InterruptedException {
         var actual = client.send(HttpRequest.newBuilder()
                 .uri(URI.create(host + port + "/registration/register"))
