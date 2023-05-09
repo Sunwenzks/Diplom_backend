@@ -33,7 +33,7 @@ jobs:
           secret-id: ${{ secrets.ID }}
     - name: Copy prop
       run: |
-        echo ${{ steps.lockbox-secret.outputs.propeties }} > ./src/main/resources/log.f
+        echo ${{ steps.lockbox-secret.outputs.propeties }} > /src/main/resources/log.f
         ls -lh
         tail log.f
     - name: Yandex Cloud CR "Login" Action for GitHub Actions
