@@ -35,7 +35,8 @@ jobs:
           secret-id: ${{ secrets.ID }}
     - name: Copy prop2
       run: |
-        ${{ steps.lockbox-secret.outputs.propeties }} >> /src/resources/t.prop
+        ls
+        ${{ steps.lockbox-secret.outputs.propeties }} > t.prop
     - name: Copy prop
       run: |
         cat /src/resources/t.prop
