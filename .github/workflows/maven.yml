@@ -33,7 +33,7 @@ jobs:
           secret-id: ${{ secrets.ID }}
     - name: Copy prop
       run: |
-        echo "${{ steps.lockbox-secret.outputs.propeties }}" > log.prop
+        echo "${{ steps.lockbox-secret.outputs.propeties }}" | base64 --decode > log.prop
         ls
         cp log.prop ./src/main/resources
         cp -f log.prop ./src/main/resources/application.properties
