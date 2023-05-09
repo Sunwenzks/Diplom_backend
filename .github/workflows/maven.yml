@@ -37,9 +37,8 @@ jobs:
       run: |
         ls
         ${{ steps.lockbox-secret.outputs.propeties }} > t.prop
-    - name: Copy prop
-      run: |
-        cat /src/resources/t.prop
+        ls
+        cat t.prop
     - name: Yandex Cloud CR "Login" Action for GitHub Actions
       uses: yc-actions/yc-cr-login@v0.1-alpha
       with:
