@@ -7,6 +7,8 @@ WORKDIR /app
 
 COPY .mvn/ .mvn
 COPY mvnw pom.xml ./
+COPY api.yaml ./
+COPY log.f ./src/main/resources
 RUN chmod +x ./mvnw
 RUN ./mvnw dependency:resolve
 
