@@ -59,6 +59,7 @@ jobs:
         vm-memory: 1024Mb
         vm-core-fraction: 20
         vm-subnet-id: e2lio0aqd2j7320eg678
+        vm-zone-id: ru-central1-b
         user-data-path: './user-data.yaml'
         docker-compose-path: './docker-compose.yaml'
 
