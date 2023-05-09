@@ -29,6 +29,12 @@ jobs:
         cache: maven
     - name: Run Tests
       run: mvn test
+    - name: Fetch secret
+      id: lockbox-secret
+      uses: yc-actions/yc-lockbox@v1
+      with:
+          yc-sa-json-credentials: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
+          secret-id: ${{ secrets.ID }}
     - name: Yandex Cloud CR "Login" Action for GitHub Actions
       uses: yc-actions/yc-cr-login@v0.1-alpha
       with:
