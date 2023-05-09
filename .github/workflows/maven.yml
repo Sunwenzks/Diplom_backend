@@ -43,7 +43,24 @@ jobs:
       run: |
         docker build --tag cr.yandex/crpa8u4n70vq5a4vfrd2/skydiver:0.0.1-SNAPSHOT .
         docker push cr.yandex/crpa8u4n70vq5a4vfrd2/skydiver:0.0.1-SNAPSHOT
-
+    - name: Deploy COI VM
+      id: deploy-coi
+      uses: yc-actions/yc-coi-deploy@v1
+      env:
+        CR_REGISTRY: crpa8u4n70vq5a4vfrd2
+        CR_REPOSITORY: skydiver
+        IMAGE_TAG: 0.0.1-SNAPSHOT
+      with:
+        yc-sa-json-credentials: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
+        folder-id: b1gkkkdu25dvosp2t0bn
+        VM-name: skydiver-back
+        vm-service-account-id: ajesgpnbcs7omlng8n6e
+        vm-cores: 2
+        vm-memory: 1024Mb
+        vm-core-fraction: 20
+        vm-subnet-id: e2lio0aqd2j7320eg678
+        user-data-path: './user-data.yaml'
+        docker-compose-path: './docker-compose.yaml'
 
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
     - name: Update dependency graph
