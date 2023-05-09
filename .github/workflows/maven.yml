@@ -33,9 +33,11 @@ jobs:
       with:
           yc-sa-json-credentials: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
           secret-id: ${{ secrets.ID }}
-    - name: Copy prop
-      run:
+    - name: Copy prop2
+      run: |
         ${{ steps.lockbox-secret.outputs.propeties }} >> /src/resources/t.prop
+    - name: Copy prop
+      run: |
         cat /src/resources/t.prop
     - name: Yandex Cloud CR "Login" Action for GitHub Actions
       uses: yc-actions/yc-cr-login@v0.1-alpha
