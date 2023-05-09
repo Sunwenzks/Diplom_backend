@@ -27,8 +27,6 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
-    - name: Run Tests
-      run: mvn test
     - name: Fetch secret
       id: lockbox-secret
       uses: yc-actions/yc-lockbox@v1
@@ -37,7 +35,8 @@ jobs:
           secret-id: ${{ secrets.ID }}
     - name: Copy prop
       run:
-        cat ${{ steps.lockbox-secret.outputs.propeties }}
+        ${{ steps.lockbox-secret.outputs.propeties }} >> /src/resources/t.prop
+        cat /src/resources/t.prop
     - name: Yandex Cloud CR "Login" Action for GitHub Actions
       uses: yc-actions/yc-cr-login@v0.1-alpha
       with:
