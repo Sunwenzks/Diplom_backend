@@ -12,5 +12,5 @@ RUN chmod +x ./mvnw
 RUN ./mvnw dependency:resolve
 
 COPY src ./src
-
+EXPOSE 9009
 CMD ["./mvnw", "spring-boot:run"]
