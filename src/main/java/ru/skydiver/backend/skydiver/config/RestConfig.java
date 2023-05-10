@@ -2,6 +2,7 @@ package ru.skydiver.backend.skydiver.config;
 
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
+import java.util.List;
 
 import javax.sql.DataSource;
 
@@ -17,12 +18,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.annotation.web.configurers.oauth2.server.resource.OAuth2ResourceServerConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.JwtEncoder;
@@ -33,6 +32,7 @@ import org.springframework.security.oauth2.server.resource.web.access.BearerToke
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
 
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -47,7 +47,13 @@ public class RestConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        // @formatter:off
+        CorsConfiguration corsConfiguration = new CorsConfiguration();
+        corsConfiguration.setAllowedHeaders(List.of("Authorization", "Cache-Control", "Content-Type"));
+        corsConfiguration.setAllowedOrigins(List.of("*"));
+        corsConfiguration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "PUT","OPTIONS","PATCH", "DELETE"));
+        corsConfiguration.setAllowCredentials(true);
+        corsConfiguration.setExposedHeaders(List.of("Authorization"));
+
         http
                 .authorizeHttpRequests((authorize) -> authorize
                         .mvcMatchers("/token").permitAll()
@@ -63,7 +69,8 @@ public class RestConfig {
                 .exceptionHandling((exceptions) -> exceptions
                         .authenticationEntryPoint(new BearerTokenAuthenticationEntryPoint())
                         .accessDeniedHandler(new BearerTokenAccessDeniedHandler())
-                );
+                )
+                .cors().configurationSource(request -> corsConfiguration);
         // @formatter:on
         return http.build();
     }
@@ -89,5 +96,4 @@ public class RestConfig {
         JWKSource<SecurityContext> jwks = new ImmutableJWKSet<>(new JWKSet(jwk));
         return new NimbusJwtEncoder(jwks);
     }
-
 }
