@@ -7,6 +7,7 @@ import org.openapitools.api.CategoryApi;
 import org.openapitools.model.Category;
 import org.openapitools.model.CategoryResponse;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 import ru.skydiver.backend.skydiver.model.CategoryEntity;
 import ru.skydiver.backend.skydiver.services.CategoryService;
@@ -21,6 +22,7 @@ public class CategoryController implements CategoryApi {
     }
 
     @Override
+    @CrossOrigin
     public ResponseEntity<CategoryResponse> categoryList(Boolean isMain) {
         var categories = (isMain != null && isMain) ?
                 categoryService.getMainCategory() :
