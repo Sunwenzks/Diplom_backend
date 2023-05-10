@@ -4,7 +4,8 @@ info:
   title: Skydiver
   description: API
   version: LATEST
-
+servers:
+  - url: http://84.201.152.120:9009/
 tags:
   - name: ping
     description: metrics
