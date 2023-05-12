@@ -3,16 +3,17 @@ package ru.skydiver.backend.skydiver.controller;
 import java.time.Instant;
 import java.util.stream.Collectors;
 
-import org.springframework.security.core.Authentication;
+import org.openapitools.api.TokenApi;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.jwt.JwtClaimsSet;
 import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.JwtEncoderParameters;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class LoginController {
+public class LoginController implements TokenApi {
 
     private final JwtEncoder encoder;
 
@@ -20,8 +21,9 @@ public class LoginController {
         this.encoder = encoder;
     }
 
-    @PostMapping("/token")
-    public String token(Authentication authentication) {
+    @Override
+    public ResponseEntity<String> login() {
+        var authentication = SecurityContextHolder.getContext().getAuthentication();
         Instant now = Instant.now();
         long expiry = 36000L;
         String scope = authentication.getAuthorities().stream()
@@ -34,7 +36,7 @@ public class LoginController {
                 .subject(authentication.getName())
                 .claim("scope", scope)
                 .build();
-        return this.encoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
+        return ResponseEntity.ok(
+                this.encoder.encode(JwtEncoderParameters.from(claims)).getTokenValue());
     }
-
 }
