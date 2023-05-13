@@ -164,6 +164,8 @@ paths:
     post:
       description: регистрация нового пользователя
       operationId: register
+      tags:
+        - registration
       requestBody:
         content:
           application/json:
