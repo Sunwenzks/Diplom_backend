@@ -36,9 +36,9 @@ public class CartController implements CartApi {
     }
 
     @Override
-    public ResponseEntity<Void> removeFromCart(CartRequest cartRequest) {
+    public ResponseEntity<Void> changeCart(CartRequest cartRequest) {
         var userName = SecurityContextHolder.getContext().getAuthentication().getName();
-        cartService.removeFromCart(userName, cartRequest.getProductId(), cartRequest.getAmount());
+        cartService.changeCart(userName, cartRequest.getProductId(), cartRequest.getAmount());
         return  ResponseEntity.ok(null);
     }
 

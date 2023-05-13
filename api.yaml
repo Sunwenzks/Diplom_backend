@@ -203,10 +203,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CartResponse'
-  /cart/remove:
+  /cart/changeCart:
     post:
-      description: удалить из корзины
-      operationId: removeFromCart
+      description: изменить кол-во или удалить из корзины
+      operationId: changeCart
       security:
         - BearerAuth: [ ]
       tags:

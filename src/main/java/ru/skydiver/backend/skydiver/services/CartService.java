@@ -31,7 +31,7 @@ public class CartService {
         return cartRepository.getCartByUser(userId);
     }
 
-    public void removeFromCart(
+    public void changeCart(
             String userId, int productId, int amount) {
         var existingCartRow = cartRepository.getCartRowByUser(userId, productId);
         if (existingCartRow.isEmpty()) {
@@ -41,7 +41,7 @@ public class CartService {
             cartRepository.removeFromCart(userId, productId);
         } else {
             cartRepository.updateAmount(
-                    userId, productId, existingCartRow.get().amount() - amount);
+                    userId, productId, amount);
         }
     }
 
