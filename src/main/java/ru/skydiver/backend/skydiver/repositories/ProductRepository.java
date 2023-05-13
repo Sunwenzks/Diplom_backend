@@ -38,8 +38,12 @@ public class ProductRepository {
     public List<ProductEntity> searchProduct(
             int category, Integer priceFrom, Integer priceTo, String searchString) {
         var params = new HashMap<String, Object>();
-        var sql = "select * from " + TABLE_NAME + " where category_id = :categoryId ";
-        params.put("categoryId", category);
+        var sql = "select * from " + TABLE_NAME + " where true ";
+        if (category > 0) {
+            sql += "and category_id = :categoryId ";
+            params.put("categoryId", category);
+        }
+
         if (priceTo != null) {
             sql += "and price >= :priceFrom ";
             params.put("priceFrom", priceFrom);
