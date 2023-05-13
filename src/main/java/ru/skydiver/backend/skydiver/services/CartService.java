@@ -17,6 +17,9 @@ public class CartService {
 
     public void addToCart(String userId, int productId, int amount) {
         var existingCartRow = cartRepository.getCartRowByUser(userId, productId);
+        if (amount <= 0) {
+            cartRepository.removeFromCart(userId, productId);
+        }
         if (existingCartRow.isEmpty()) {
             cartRepository.addToCart(userId, productId, amount);
         } else {
@@ -37,7 +40,7 @@ public class CartService {
         if (existingCartRow.isEmpty()) {
             return;
         }
-        if (existingCartRow.get().amount() - amount <= 0) {
+        if (amount <= 0) {
             cartRepository.removeFromCart(userId, productId);
         } else {
             cartRepository.updateAmount(
