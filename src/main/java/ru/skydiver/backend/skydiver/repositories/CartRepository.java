@@ -85,6 +85,13 @@ public class CartRepository {
         jdbcTemplate.update(sql, params);
     }
 
+    public int getCartCount(String userId) {
+        var sql = "select count(*) from " + CART_TABLE_NAME +
+                " where c.user_id = :userId";
+        var params = Map.of("userId", userId);
+        return jdbcTemplate.queryForObject(sql, params, Integer.class);
+    }
+
     private static class CartRowMapper implements RowMapper<CartProductEntity> {
         @Override
         public CartProductEntity mapRow(ResultSet rs, int rowNum) throws SQLException {

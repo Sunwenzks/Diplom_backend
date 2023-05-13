@@ -19,6 +19,8 @@ tags:
     description: Получение категорий
   - name: cart
     description: методы для работы с корзиной
+  - name: order
+    description: методы работы с заказами
 paths:
   /token:
     post:
@@ -205,6 +207,22 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CartResponse'
+  /cart/count:
+    get:
+      description: Кол-во позиций в корзине
+      operationId: getCartCount
+      security:
+        - BearerAuth: [ ]
+      tags:
+        - cart
+      responses:
+        200:
+          description: Кол-во
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CartCountResponse'
+
   /cart/changeCart:
     post:
       description: изменить кол-во или удалить из корзины
@@ -232,6 +250,17 @@ paths:
       responses:
         200:
           description: "ok"
+  /order/create:
+    post:
+      description: Создание заказа
+      operationId: createOrder
+      security:
+        - BearerAuth: [ ]
+      tags:
+        - order
+      responses:
+        200:
+          description: OK
 components:
   securitySchemes:
     basicAuth:
@@ -243,6 +272,12 @@ components:
       scheme: bearer
 
   schemas:
+    CartCountResponse:
+      type: object
+      properties:
+        count:
+          type: integer
+          nullable: false
     CartResponse:
       type: object
       description: Список товаров в корзине пользователя

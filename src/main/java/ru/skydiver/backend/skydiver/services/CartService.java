@@ -51,4 +51,8 @@ public class CartService {
     public void removeAllFromCart(String userId) {
         cartRepository.clearCart(userId);
     }
+
+    public int getCartCount(String userId) {
+        return cartRepository.getCartCount(userId);
+    }
 }

@@ -1,6 +1,7 @@
 package ru.skydiver.backend.skydiver.controller;
 
 import org.openapitools.api.CartApi;
+import org.openapitools.model.CartCountResponse;
 import org.openapitools.model.CartProduct;
 import org.openapitools.model.CartRequest;
 import org.openapitools.model.CartResponse;
@@ -47,6 +48,13 @@ public class CartController implements CartApi {
         var userName = SecurityContextHolder.getContext().getAuthentication().getName();
         cartService.removeAllFromCart(userName);
         return ResponseEntity.ok(null);
+    }
+
+    @Override
+    public ResponseEntity<CartCountResponse> getCartCount() {
+        var userName = SecurityContextHolder.getContext().getAuthentication().getName();
+        var cartCount = cartService.getCartCount(userName);
+        return ResponseEntity.ok(new CartCountResponse().count(cartCount));
     }
 
     private static CartProduct toCartResponse(CartProductEntity entity) {
