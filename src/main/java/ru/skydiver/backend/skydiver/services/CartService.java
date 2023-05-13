@@ -16,14 +16,36 @@ public class CartService {
     }
 
     public void addToCart(String userId, int productId, int amount) {
-        cartRepository.addToCart(userId, productId, amount);
+        var existingCartRow = cartRepository.getCartRowByUser(userId, productId);
+        if (existingCartRow.isEmpty()) {
+            cartRepository.addToCart(userId, productId, amount);
+        } else {
+            cartRepository.updateAmount(
+                    userId,
+                    productId,
+                    existingCartRow.get().amount() + amount);
+        }
     }
 
     public List<CartProductEntity> getUserCart(String userId) {
         return cartRepository.getCartByUser(userId);
     }
 
-    public void removeFromCart(String userId, int productId) {
-        cartRepository.removeFromCart(userId, productId);
+    public void removeFromCart(
+            String userId, int productId, int amount) {
+        var existingCartRow = cartRepository.getCartRowByUser(userId, productId);
+        if (existingCartRow.isEmpty()) {
+            return;
+        }
+        if (existingCartRow.get().amount() - amount <= 0) {
+            cartRepository.removeFromCart(userId, productId);
+        } else {
+            cartRepository.updateAmount(
+                    userId, productId, existingCartRow.get().amount() - amount);
+        }
+    }
+
+    public void removeAllFromCart(String userId) {
+        cartRepository.clearCart(userId);
     }
 }

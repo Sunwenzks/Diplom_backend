@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -40,6 +41,38 @@ public class CartRepository {
                 "amount", amount
         );
         jdbcTemplate.update(sql, params);
+    }
+
+    public void updateAmount(String userId, int productId, int newAmount) {
+        var sql = "update cart " +
+                "set amount = :newAmount " +
+                "where user_id = :userId and product_id = :productId";
+        var params = Map.of(
+                "userId", userId,
+                "productId", productId,
+                "newAmount", newAmount
+        );
+        jdbcTemplate.update(sql, params);
+    }
+
+    public void clearCart(String userId) {
+        var sql = "delete from cart\n" +
+                "where user_id = :userId";
+        var params = Map.of(
+                "userId", userId
+        );
+        jdbcTemplate.update(sql, params);
+    }
+
+    public Optional<CartProductEntity> getCartRowByUser(String userId, int productId) {
+        var sql = "select * from " + CART_TABLE_NAME + " c " +
+                "join " + PRODUCT_TABLE_NAME + " p on c.product_id = p.id " +
+                "where c.user_id = :userId and c.product_id = :productId";
+        var params = Map.of(
+                "userId", userId,
+                "productId", productId
+        );
+        return jdbcTemplate.query(sql, params, ROW_MAPPER).stream().findAny();
     }
 
     public void removeFromCart(String userId, int productId) {

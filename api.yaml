@@ -176,6 +176,8 @@ paths:
     post:
       description: добавить товар в корзину
       operationId: addToCart
+      security:
+        - BearerAuth: []
       tags:
         - cart
       requestBody:
@@ -190,6 +192,8 @@ paths:
     get:
       description: получить список товаров в корзине
       operationId: getCart
+      security:
+        - BearerAuth: [ ]
       tags:
         - cart
       responses:
@@ -203,6 +207,8 @@ paths:
     post:
       description: удалить из корзины
       operationId: removeFromCart
+      security:
+        - BearerAuth: [ ]
       tags:
         - cart
       requestBody:
@@ -213,12 +219,26 @@ paths:
       responses:
         200:
           description: 'ok'
+  /cart/removeAll:
+    post:
+      description: очищает всю корзину
+      operationId: removeAllFromCart
+      security:
+        - BearerAuth: [ ]
+      tags:
+        - cart
+      responses:
+        200:
+          description: "ok"
 components:
   securitySchemes:
     basicAuth:
-      type: "http"
-      description: "Basic Authorization header."
-      scheme: "basic"
+      type: http
+      description: Basic Authorization header.
+      scheme: basic
+    BearerAuth:
+      type: http
+      scheme: bearer
 
   schemas:
     CartResponse:
