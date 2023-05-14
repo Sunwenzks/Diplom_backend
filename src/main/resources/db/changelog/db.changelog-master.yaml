@@ -199,10 +199,37 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: date_order
-                  type: date
+                  type: datetime
+                  defaultValueComputed: CURRENT_TIMESTAMP
+              - column:
+                  name: status
+                  type: text
+                  constraints:
+                    nullable: false
+
+        - createTable:
+            tableName: orders_items
+            schemaName: public
+            columns:
+              - column:
+                  name: order_id
+                  type: integer
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: product_id
+                  type: text
+                  constraints:
+                    nullable: false
+              - column:
+                  name: amount
+                  type: integer
                   constraints:
                     unique: true
                     nullable: false
+
   - changeSet:
       id: 14
       author: Ksyu

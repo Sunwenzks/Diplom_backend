@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.util.Base64;
 
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.ExpectedDatabase;
@@ -69,17 +68,5 @@ public class CartControllerTests extends FunctionalTest {
                         .build(),
                 HttpResponse.BodyHandlers.ofString()
         );
-    }
-
-    private String getToken() throws IOException, InterruptedException {
-        String encoding = Base64.getEncoder().encodeToString(("user" + ":" + "password").getBytes());
-        return client.send(
-                HttpRequest.newBuilder()
-                        .uri(URI.create(host + port + "/token"))
-                        .POST(HttpRequest.BodyPublishers.noBody())
-                        .setHeader(HttpHeaders.AUTHORIZATION, "Basic " + encoding)
-                        .build(),
-                HttpResponse.BodyHandlers.ofString()
-        ).body();
     }
 }
