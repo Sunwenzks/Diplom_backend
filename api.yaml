@@ -421,15 +421,11 @@ components:
         name:
           description: название категории
           type: string
-          nullable: false
         mainCategory:
           description: категория для главной страницы
           type: boolean
-          nullable: true
-          default: false
         imageUrl:
           type: string
-          nullable: true
 
 
 
