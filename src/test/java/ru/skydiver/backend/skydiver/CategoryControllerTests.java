@@ -21,10 +21,9 @@ public class CategoryControllerTests extends FunctionalTest {
     @DatabaseTearDown(value = "CategoryData.xml", type = DatabaseOperation.DELETE)
     @Disabled
     public void getAllCategories() throws Exception {
-        var expected = "{\"categories\":" +
-                "[{\"id\":1,\"name\":\"First\",\"mainCategory\":{\"present\":true}," +
-                "\"imageUrl\":{\"present\":true}},{\"id\":2,\"name\":\"Second\",\"mainCategory\":{\"present\":true}," +
-                "\"imageUrl\":{\"present\":true}}]}";
+        var expected = "{\"categories\":[{\"id\":1,\"name\":\"First\",\"mainCategory\":true," +
+                "\"imageUrl\":\"somePicUrl\"},{\"id\":2,\"name\":\"Second\",\"mainCategory\":false," +
+                "\"imageUrl\":\"somePicUrl2\"}]}";
 
         var actual = client.send(HttpRequest.newBuilder().uri(URI.create(host + port + "/category/list"))
                 .build(), HttpResponse.BodyHandlers.ofString());
