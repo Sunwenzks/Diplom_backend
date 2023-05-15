@@ -260,4 +260,13 @@ databaseChangeLog:
                   type: text
                   constraints:
                     nullable: false
+  - changeSet:
+      id: u1
+      author: Ksyu
+      changes:
+        - dropUniqueConstraint:
+            schemaName: public
+            tableName: orders_items
+            uniqueColumns: amount
+            constraintName: orders_items_amount_key
         
