@@ -269,4 +269,24 @@ databaseChangeLog:
             tableName: orders_items
             uniqueColumns: amount
             constraintName: orders_items_amount_key
-        
+  - changeSet:
+      id: u2
+      author: Ksyu
+      changes:
+        - dropTable:
+            cascadeConstraints: true
+            schemaName: public
+            tableName: orders_items
+        - createTable:
+            tableName: orders_items
+            schemaName: public
+            columns:
+              - column:
+                  name: order_id
+                  type: integer
+              - column:
+                  name: product_id
+                  type: text
+              - column:
+                  name: amount
+                  type: integer
