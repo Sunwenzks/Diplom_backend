@@ -87,7 +87,7 @@ public class CartRepository {
 
     public int getCartCount(String userId) {
         var sql = "select count(*) from " + CART_TABLE_NAME +
-                " where c.user_id = :userId";
+                " where user_id = :userId";
         var params = Map.of("userId", userId);
         return jdbcTemplate.queryForObject(sql, params, Integer.class);
     }
