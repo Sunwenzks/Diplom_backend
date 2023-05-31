@@ -13,12 +13,18 @@ public class CategoryService {
     public CategoryService(CategoryRepository categoryRepository) {
         this.categoryRepository = categoryRepository;
     }
-    public void addCategory(String categoryName) {
+
+    public void addCategory(String categoryName, boolean mainPage, String imageUrl) {
         var existingCategory = categoryRepository.getCategory(categoryName);
         if (existingCategory != null) {
             throw new IllegalArgumentException(); //исключение при добавлении существующей категории
         }
-        categoryRepository.addCategory(categoryName);
+        categoryRepository.addCategory(
+                new CategoryEntity(0, categoryName, mainPage, imageUrl));
+    }
+
+    public void removeCategory(int categoryId) {
+        categoryRepository.removeCategory(categoryId);
     }
 
     public List<CategoryEntity> getAllCategories() {

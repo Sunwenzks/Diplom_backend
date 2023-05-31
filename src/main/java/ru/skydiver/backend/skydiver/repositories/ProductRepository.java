@@ -35,6 +35,26 @@ public class ProductRepository {
         return jdbcTemplate.query(sql, params, ROW_MAPPER).stream().findAny();
     }
 
+    public void addProduct(ProductEntity productEntity) {
+        var sql = "insert into " + TABLE_NAME +
+                  "(name, category_id, price, price, image_url, description) " +
+                "values (:name, :catId, :price, :img, :description)";
+        jdbcTemplate.update(sql,
+                Map.of(
+                        "name", productEntity.getName(),
+                        "catId", productEntity.getIdCategory(),
+                        "price", productEntity.getPrice(),
+                        "img", productEntity.getProductURL(),
+                        "description", productEntity.getProduct_description()
+                ));
+    }
+
+    public void removeProduct(int productId) {
+        var sql = "delete from " + TABLE_NAME +
+                "where id = :id";
+        jdbcTemplate.update(sql, Map.of("id", productId));
+    }
+
     public List<ProductEntity> searchProduct(
             int category, Integer priceFrom, Integer priceTo, String searchString) {
         var params = new HashMap<String, Object>();

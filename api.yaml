@@ -329,6 +329,77 @@ paths:
       responses:
         200:
           description: ok
+  /admin/add-category:
+    post:
+      operationId: addCategory
+      security:
+        - BearerAuth: [ ]
+      tags:
+        - admin
+      parameters:
+        - name: categoryName
+          in: query
+          schema:
+            type: string
+        - name: mainCategory
+          in: query
+          schema:
+            type: boolean
+        - name: url
+          in: query
+          schema:
+            type: string
+      responses:
+        200:
+          description: ok
+  /admin/remove-category:
+    post:
+      operationId: removeCategory
+      security:
+        - BearerAuth: [ ]
+      tags:
+        - admin
+      parameters:
+        - name: categoryId
+          in: query
+          schema:
+            type: integer
+      responses:
+        200:
+          description: ok
+
+  /admin/add-product:
+    post:
+      operationId: addProduct
+      security:
+        - BearerAuth: [ ]
+      tags:
+        - admin
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddProductRequest'
+      responses:
+        200:
+          description: ok
+
+
+  /admin/remove-product:
+    post:
+      operationId: removeProduct
+      security:
+        - BearerAuth: [ ]
+      tags:
+        - admin
+      parameters:
+        - name: productId
+          in: query
+          schema:
+            type: integer
+      responses:
+        200:
+          description: ok
 components:
   securitySchemes:
     basicAuth:
@@ -340,6 +411,19 @@ components:
       scheme: bearer
 
   schemas:
+    AddProductRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        picture:
+          type: string
+        price:
+          type: integer
+        description:
+          type: string
+        categoryId:
+          type: integer
     CartCountResponse:
       type: object
       properties:
