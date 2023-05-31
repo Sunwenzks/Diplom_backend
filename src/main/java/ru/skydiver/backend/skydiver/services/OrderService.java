@@ -1,10 +1,13 @@
 package ru.skydiver.backend.skydiver.services;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.skydiver.backend.skydiver.model.CartProductEntity;
+import ru.skydiver.backend.skydiver.model.OrderEntity;
+import ru.skydiver.backend.skydiver.model.OrderStatuses;
 import ru.skydiver.backend.skydiver.repositories.CartRepository;
 import ru.skydiver.backend.skydiver.repositories.OrderRepository;
 
@@ -36,5 +39,13 @@ public class OrderService {
                                 CartProductEntity::productId,
                                 CartProductEntity::amount)));
         cartRepository.clearCart(userId);
+    }
+
+    public void changeOrderStatus(int orderId, OrderStatuses newStatus) {
+        orderRepository.changeStatus(orderId, newStatus);
+    }
+
+    public List<OrderEntity> getOrders() {
+        return  orderRepository.getOrders();
     }
 }

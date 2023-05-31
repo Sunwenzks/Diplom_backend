@@ -21,6 +21,8 @@ tags:
     description: методы для работы с корзиной
   - name: order
     description: методы работы с заказами
+  - name: admin
+    description: админка
 paths:
   /token:
     post:
@@ -261,6 +263,72 @@ paths:
       responses:
         200:
           description: OK
+  /admin/user-list:
+    get:
+      description: получение списка пользователей
+      operationId: getUserList
+      security:
+        - BearerAuth: [ ]
+      tags:
+        - admin
+      responses:
+        200:
+          description: Кол-во
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserList'
+  /admin/block-user:
+    post:
+      description: Отключить пользователя
+      operationId: banUser
+      security:
+        - BearerAuth: [ ]
+      tags:
+        - admin
+      parameters:
+        - name: userName
+          in: query
+          description: имя пользователя
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: ok
+  /admin/order-list:
+    get:
+      operationId: getOrders
+      security:
+        - BearerAuth: [ ]
+      tags:
+        - admin
+      responses:
+        200:
+          description: Кол-во
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderList'
+  /admin/change-order:
+    post:
+      operationId: changeOrder
+      security:
+        - BearerAuth: [ ]
+      tags:
+        - admin
+      parameters:
+        - name: orderId
+          in: query
+          schema:
+            type: integer
+        - name: newStatus
+          in: query
+          schema:
+            type: string
+      responses:
+        200:
+          description: ok
 components:
   securitySchemes:
     basicAuth:
@@ -317,7 +385,6 @@ components:
         amount:
           type: integer
           nullable: false
-
 
     ProductSearchResponse:
       type: object
@@ -409,7 +476,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Category'
-
     Category:
       description: Category
       type: object
@@ -426,6 +492,42 @@ components:
           type: boolean
         imageUrl:
           type: string
+    User:
+      description: user
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        enabled:
+          type: boolean
+    UserList:
+      type: object
+      properties:
+        users:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+    Order:
+      type: object
+      properties:
+        id:
+          type: integer
+        user:
+          type: string
+        date:
+          type: string
+        status:
+          type: string
+
+    OrderList:
+      type: object
+      properties:
+        orders:
+          type: array
+          items:
+            $ref: '#/components/schemas/Order'
 
 
 
