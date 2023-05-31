@@ -26,11 +26,13 @@ public class UserRepository {
         return jdbcTemplate.query(sql, ROW_MAPPER);
     }
 
-    public void banUser(String userName) {
+    public void banUser(String userName, boolean status) {
         var sql = "update " + TABLE_NAME +
-                "set enabled = false " +
-                "where username = :userName";
-        jdbcTemplate.update(sql, Map.of("userName", userName));
+                " set enabled = :status " +
+                " where username = :userName";
+        jdbcTemplate.update(sql, Map.of(
+                "status", status,
+                "userName", userName));
     }
 
     public Optional<UserEntity> loadByUserName(String userName) {

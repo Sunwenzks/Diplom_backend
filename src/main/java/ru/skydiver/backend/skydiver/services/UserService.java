@@ -16,7 +16,7 @@ public class UserService {
 
     public void banUser(String userName) {
         userRepository.loadByUserName(userName).ifPresent(user ->
-                userRepository.banUser(user.getName()));
+                userRepository.banUser(user.getName(), !user.getEnabled()));
     }
 
     public List<UserEntity> getUserList() {
