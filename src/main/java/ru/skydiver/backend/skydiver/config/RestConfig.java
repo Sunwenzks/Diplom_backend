@@ -52,7 +52,7 @@ public class RestConfig {
                         .mvcMatchers("/category/*").permitAll()
                         .mvcMatchers("/product/*").permitAll()
                         .mvcMatchers("/registration/*").permitAll()
-                        .mvcMatchers("/admin/*").hasAuthority("fulladmin")
+                        .mvcMatchers("/admin/*").hasRole("fulladmin")
                         .anyRequest().authenticated()
                 )
                 .csrf(AbstractHttpConfigurer::disable)

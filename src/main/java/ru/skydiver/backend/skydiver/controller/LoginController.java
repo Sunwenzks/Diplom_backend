@@ -35,6 +35,10 @@ public class LoginController implements TokenApi {
                 .expiresAt(now.plusSeconds(expiry))
                 .subject(authentication.getName())
                 .claim("scope", scope)
+                .claims(stringObjectMap ->{
+                    stringObjectMap.put("scope", scope);
+                    stringObjectMap.put("Role", scope);
+                })
                 .build();
         return ResponseEntity.ok(
                 this.encoder.encode(JwtEncoderParameters.from(claims)).getTokenValue());
