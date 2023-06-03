@@ -37,7 +37,7 @@ public class ProductRepository {
 
     public void addProduct(ProductEntity productEntity) {
         var sql = "insert into " + TABLE_NAME +
-                  " (name, category_id, price, price, image_url, description) " +
+                  " (name, category_id, price, image_url, description) " +
                 " values (:name, :catId, :price, :img, :description)";
         var params = Map.of(
                 "name", productEntity.getName(),

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <dataset>
     <Users id="100501" username="user" password="$2a$10$4tbT11exMq3jJjIQBHp/MOcQwjeSsq6G/f3PqFhVxN5HQuCgG1iYu" enabled="true"/>
-    <Authorities id="100500" username="user" authority="write"/>
+    <Authorities id="100500" username="user" authority="fulladmin"/>
 </dataset>
