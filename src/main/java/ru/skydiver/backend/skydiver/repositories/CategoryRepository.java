@@ -4,10 +4,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
-import org.apache.commons.lang3.NotImplementedException;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
 import ru.skydiver.backend.skydiver.model.CategoryEntity;
 
@@ -15,9 +15,9 @@ import ru.skydiver.backend.skydiver.model.CategoryEntity;
 public class CategoryRepository {
     private static final String TABLE_NAME = "category";
     private final CategoryRowMapper ROW_MAPPER = new CategoryRowMapper();
-    private final JdbcTemplate jdbcTemplate;
+    private final NamedParameterJdbcTemplate jdbcTemplate;
 
-    public CategoryRepository(JdbcTemplate jdbcTemplate) {
+    public CategoryRepository(NamedParameterJdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
@@ -31,8 +31,11 @@ public class CategoryRepository {
         return jdbcTemplate.query(sql, ROW_MAPPER);
     }
 
-    public String getCategory(String categoryName) {
-        throw new NotImplementedException();
+    public Optional<CategoryEntity> getCategory(String categoryName) {
+        var sql = "select * from " + TABLE_NAME +
+                " where name = :n";
+        var params =  Map.of("n", categoryName);
+        return jdbcTemplate.query(sql, params, ROW_MAPPER).stream().findAny();
     }
 
     public void addCategory(CategoryEntity category) {
