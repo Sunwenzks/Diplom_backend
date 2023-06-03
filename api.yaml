@@ -329,6 +329,34 @@ paths:
       responses:
         200:
           description: ok
+
+  /admin/update-category:
+    post:
+      operationId: updateCategory
+      security:
+        - BearerAuth: [ ]
+      tags:
+        - admin
+      parameters:
+        - name: categoryId
+          in: query
+          schema:
+            type: integer
+        - name: categoryName
+          in: query
+          schema:
+            type: string
+        - name: mainCategory
+          in: query
+          schema:
+            type: boolean
+        - name: url
+          in: query
+          schema:
+            type: string
+      responses:
+        200:
+          description: ok
   /admin/add-category:
     post:
       operationId: addCategory
@@ -383,8 +411,21 @@ paths:
       responses:
         200:
           description: ok
-
-
+  /admin/update-product:
+    post:
+      operationId: updateProduct
+      security:
+        - BearerAuth: [ ]
+      tags:
+        - admin
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddProductRequest'
+      responses:
+        200:
+          description: ok
   /admin/remove-product:
     post:
       operationId: removeProduct
@@ -612,8 +653,3 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Order'
-
-
-
-
-
