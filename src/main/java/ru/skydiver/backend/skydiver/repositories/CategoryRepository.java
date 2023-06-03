@@ -49,7 +49,7 @@ public class CategoryRepository {
 
     public void removeCategory(int categoryId) {
         var sql = "delete from " + TABLE_NAME +
-                "where id = :id";
+                " where id = :id";
         jdbcTemplate.update(sql, Map.of("id", categoryId));
     }
 

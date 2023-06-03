@@ -37,21 +37,21 @@ public class ProductRepository {
 
     public void addProduct(ProductEntity productEntity) {
         var sql = "insert into " + TABLE_NAME +
-                  "(name, category_id, price, price, image_url, description) " +
-                "values (:name, :catId, :price, :img, :description)";
-        jdbcTemplate.update(sql,
-                Map.of(
-                        "name", productEntity.getName(),
-                        "catId", productEntity.getIdCategory(),
-                        "price", productEntity.getPrice(),
-                        "img", productEntity.getProductURL(),
-                        "description", productEntity.getProduct_description()
-                ));
+                  " (name, category_id, price, price, image_url, description) " +
+                " values (:name, :catId, :price, :img, :description)";
+        var params = Map.of(
+                "name", productEntity.getName(),
+                "catId", productEntity.getIdCategory(),
+                "price", productEntity.getPrice(),
+                "img", productEntity.getProductURL(),
+                "description", productEntity.getProduct_description()
+        );
+        jdbcTemplate.update(sql, params);
     }
 
     public void removeProduct(int productId) {
         var sql = "delete from " + TABLE_NAME +
-                "where id = :id";
+                " where id = :id";
         jdbcTemplate.update(sql, Map.of("id", productId));
     }
 
