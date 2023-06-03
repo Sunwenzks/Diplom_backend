@@ -93,8 +93,9 @@ public class ProductRepository {
                 "name", updatedProduct.getName(),
                 "catId", updatedProduct.getIdCategory(),
                 "price", updatedProduct.getPrice(),
-                "image_url", updatedProduct.getProductURL(),
-                "description", updatedProduct.getProduct_description()
+                "img", updatedProduct.getProductURL(),
+                "desc", updatedProduct.getProduct_description(),
+                "id", updatedProduct.getIdProduct()
         ));
     }
 
