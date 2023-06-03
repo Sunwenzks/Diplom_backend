@@ -33,4 +33,13 @@ public class CategoryService {
     public List<CategoryEntity> getMainCategory(){
         return categoryRepository.getMainCategory();
     }
+
+    public void updateCategory(Integer categoryId, String categoryName, Boolean mainCategory, String url) {
+        categoryRepository.updateCategory(
+                categoryId,
+                categoryName,
+                mainCategory,
+                url
+        );
+    }
 }

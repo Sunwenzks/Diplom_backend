@@ -3,6 +3,7 @@ package ru.skydiver.backend.skydiver.services;
 import java.util.List;
 import java.util.Optional;
 
+import org.openapitools.model.AddProductRequest;
 import org.openapitools.model.Product;
 import org.springframework.stereotype.Service;
 import ru.skydiver.backend.skydiver.model.ProductEntity;
@@ -41,5 +42,19 @@ public class ProductService {
 
     public List<ProductEntity> searchProduct(int category, Integer priceFrom, Integer priceTo, String searchString) {
        return productRepository.searchProduct(category, priceFrom, priceTo, searchString);
+    }
+
+    public void updateProduct(AddProductRequest addProductRequest) {
+        productRepository.getSearchProduct(addProductRequest.getId())
+                .ifPresent(p -> {
+                        var updatedProduct = new ProductEntity(p.getIdProduct(),
+                                addProductRequest.getName(),
+                                addProductRequest.getCategoryId(),
+                                addProductRequest.getPrice(),
+                                addProductRequest.getPicture(),
+                                addProductRequest.getDescription());
+                        productRepository.updateProduct(updatedProduct);
+                });
+
     }
 }

@@ -81,6 +81,23 @@ public class ProductRepository {
         return jdbcTemplate.query(sql, params, ROW_MAPPER);
     }
 
+    public void updateProduct(ProductEntity updatedProduct) {
+        var sql = "update " + TABLE_NAME +
+                " set name = :name, " +
+                " category_id = :catId, " +
+                " price = :price, " +
+                " image_url = :img, " +
+                " description = :desc " +
+                " where id = :id";
+        jdbcTemplate.update(sql, Map.of(
+                "name", updatedProduct.getName(),
+                "catId", updatedProduct.getIdCategory(),
+                "price", updatedProduct.getPrice(),
+                "image_url", updatedProduct.getProductURL(),
+                "description", updatedProduct.getProduct_description()
+        ));
+    }
+
     private static class ProductRowMapper implements RowMapper<ProductEntity> {
         @Override
         public ProductEntity mapRow(ResultSet rs, int rowNum) throws SQLException {

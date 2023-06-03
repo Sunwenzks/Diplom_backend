@@ -70,6 +70,24 @@ public class AdminController implements AdminApi {
     }
 
     @Override
+    public ResponseEntity<Void> updateCategory(Integer categoryId, String categoryName, Boolean mainCategory,
+                                               String url) {
+        categoryService.updateCategory(
+                categoryId,
+                categoryName,
+                mainCategory,
+                url
+        );
+        return ResponseEntity.ok(null);
+    }
+
+    @Override
+    public ResponseEntity<Void> updateProduct(AddProductRequest addProductRequest) {
+        productService.updateProduct(addProductRequest);
+        return ResponseEntity.ok(null);
+    }
+
+    @Override
     public ResponseEntity<Void> changeOrder(Integer orderId, String newStatus) {
         orderService.changeOrderStatus(orderId, OrderStatuses.valueOf(newStatus));
         return ResponseEntity.ok(null);

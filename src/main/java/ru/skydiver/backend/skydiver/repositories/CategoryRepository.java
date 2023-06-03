@@ -50,6 +50,22 @@ public class CategoryRepository {
         jdbcTemplate.update(sql, Map.of("id", categoryId));
     }
 
+    public void updateCategory(Integer categoryId, String categoryName, Boolean mainCategory, String url) {
+        var sql = "update " + TABLE_NAME +
+                " set " +
+                " name = :name, " +
+                " main_page = :main, " +
+                " image_url = :url " +
+                " where id = :id";
+        jdbcTemplate.update(sql,
+                Map.of(
+                        "name", categoryName,
+                        "main", mainCategory,
+                        "url", url,
+                        "id", categoryId
+                ));
+    }
+
     private static class CategoryRowMapper implements RowMapper<CategoryEntity> {
         @Override
         public CategoryEntity mapRow(ResultSet rs, int rowNum) throws SQLException {
