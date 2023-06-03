@@ -15,10 +15,6 @@ public class CategoryService {
     }
 
     public void addCategory(String categoryName, boolean mainPage, String imageUrl) {
-        var existingCategory = categoryRepository.getCategory(categoryName);
-        if (existingCategory != null) {
-            throw new IllegalArgumentException(); //исключение при добавлении существующей категории
-        }
         categoryRepository.addCategory(
                 new CategoryEntity(0, categoryName, mainPage, imageUrl));
     }
